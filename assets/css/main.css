@@ -4065,6 +4065,22 @@ input, select, textarea {
 	}
 
 /* Compact skills grid: 4 columns on desktop, 3 on tablet, 2 on phones */
+	#three.wrapper {
+		padding-top: 3em;
+	}
+
+	@media screen and (max-width: 980px) {
+		#three.wrapper {
+			padding-top: 2.5em;
+		}
+	}
+
+	@media screen and (max-width: 736px) {
+		#three.wrapper {
+			padding-top: 2em;
+		}
+	}
+
 	#three header.major {
 		margin-bottom: 2em;
 	}
