@@ -35,15 +35,36 @@
 		<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Olga Bessonova",
-			"jobTitle": "Software Engineer",
-			"url": "https://olgabessonova.com/",
-			"image": "https://olgabessonova.com/images/olga.jpeg",
-			"sameAs": [
-				"https://linkedin.com/in/olgabessonova-",
-				"https://github.com/olga-bessonova",
-				"https://leetcode.com/osleepless"
+			"@graph": [
+				{
+					"@type": "ProfilePage",
+					"@id": "https://olgabessonova.com/#webpage",
+					"url": "https://olgabessonova.com/",
+					"name": "Olga Bessonova — Software Engineer",
+					"primaryImageOfPage": { "@id": "https://olgabessonova.com/#portrait" },
+					"mainEntity": { "@id": "https://olgabessonova.com/#person" }
+				},
+				{
+					"@type": "ImageObject",
+					"@id": "https://olgabessonova.com/#portrait",
+					"url": "https://olgabessonova.com/images/og-image.jpg",
+					"width": 1200,
+					"height": 630,
+					"caption": "Olga Bessonova, Software Engineer"
+				},
+				{
+					"@type": "Person",
+					"@id": "https://olgabessonova.com/#person",
+					"name": "Olga Bessonova",
+					"jobTitle": "Software Engineer",
+					"url": "https://olgabessonova.com/",
+					"image": { "@id": "https://olgabessonova.com/#portrait" },
+					"sameAs": [
+						"https://linkedin.com/in/olgabessonova-",
+						"https://github.com/olga-bessonova",
+						"https://leetcode.com/osleepless"
+					]
+				}
 			]
 		}
 		</script>
@@ -82,7 +103,7 @@
 					<section id="banner">
 						<div class="inner">
 							<h2>Olga Bessonova</h2>
-							<p>I am a Software Engineer<br/>
+							<p>Software Engineer<br/>
 							with a passion for Python,<br/> JavaScript, and React.</p>
 						</div>
 						<a href="#one" class="more scrolly">Would you like to know more?</a>
@@ -92,10 +113,10 @@
 					<section id="one" class="wrapper style1 special">
 						<div class="inner">
 							<header class="major">
-								<h2>About me:</h2>
+								<h2 data-nosnippet>About me:</h2>
 
-								<p>
-									I am a software engineer.								
+								<p data-nosnippet>
+									I am a software engineer.
 								</p>
 								<p>
 									My interests span from web development to machine learning and AI. I have a passion for new technologies and creative challenges. In every new project, the user experience is my top priority. I continuously strive to create an intuitive interface, ensuring a positive experience for all users.
