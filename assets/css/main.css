@@ -4063,3 +4063,69 @@ input, select, textarea {
 		white-space: nowrap;
 		border: 0 !important;
 	}
+
+/* Compact skills grid: 4 columns on desktop, 3 on tablet, 2 on phones */
+	#three header.major {
+		margin-bottom: 2em;
+	}
+
+	#three .features li {
+		width: 25%;
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		padding: 1.4em 1em 1.4em 3.25em;
+		border-radius: 0 !important;
+	}
+
+		#three .features li:before {
+			left: 1em;
+			top: 50%;
+			font-size: 1.1em;
+			-moz-transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+		}
+
+		#three .features li h3 {
+			margin: 0;
+			font-size: 0.8em;
+		}
+
+	@media screen and (max-width: 980px) {
+
+		#three .features li {
+			width: 33.333%;
+			text-align: left;
+		}
+
+			#three .features li:before {
+				position: absolute;
+				margin: 0;
+			}
+
+	}
+
+	@media screen and (max-width: 736px) {
+
+		#three .features li {
+			width: 50%;
+			padding: 1em 0.5em 1em 2.75em;
+			border-top: solid 1px rgba(255, 255, 255, 0.35);
+		}
+
+			#three .features li:nth-child(-n+2) {
+				border-top: 0;
+			}
+
+			#three .features li:before {
+				left: 0.75em;
+			}
+
+	}
