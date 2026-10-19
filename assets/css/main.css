@@ -2615,6 +2615,14 @@ input, select, textarea {
 				background-color: rgba(0, 0, 0, 0.35);
 			}
 
+			.features li:nth-child(11) {
+				background-color: rgba(0, 0, 0, 0.385);
+			}
+
+			.features li:nth-child(12) {
+				background-color: rgba(0, 0, 0, 0.42);
+			}
+
 			.features li:before {
 				display: block;
 				color: #00ffcc;
