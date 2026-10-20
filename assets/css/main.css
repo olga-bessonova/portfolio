@@ -4336,14 +4336,14 @@ input, select, textarea {
 		z-index: 9999;
 		opacity: 0;
 		visibility: hidden;
-		-moz-transform: translate(2em, -50%);
-		-webkit-transform: translate(2em, -50%);
-		-ms-transform: translate(2em, -50%);
-		transform: translate(2em, -50%);
-		-moz-transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
-		-webkit-transition: opacity 0.4s ease, -webkit-transform 0.4s ease, visibility 0s linear 0.4s;
-		-ms-transition: opacity 0.4s ease, -ms-transform 0.4s ease, visibility 0s linear 0.4s;
-		transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
+		-moz-transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		-moz-transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+		-webkit-transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+		-ms-transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+		transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 	}
 
 		.contact-buddy.is-visible {
