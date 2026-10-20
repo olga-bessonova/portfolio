@@ -4145,3 +4145,8 @@ input, select, textarea {
 			}
 
 	}
+
+/* Center the banner button (width is 15em) */
+	#banner .more {
+		margin-left: -7.5em;
+	}
