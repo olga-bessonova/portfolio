@@ -27,7 +27,7 @@
 		dismissed = false;
 
 	// Hanging sprite: where her raised hand is inside the 95x112 frame (see main.css).
-	var HAND_X = 30, HAND_Y = 2,
+	var HAND_X = 24, HAND_Y = 3,
 		SIT_W = 57, SIT_H = 88;
 
 	// --- Swing while carried: her body is a weight on a rod hanging from the cursor ---
@@ -65,10 +65,11 @@
 			swing.bx = swing.px + dx / len * swing.rod;
 			swing.by = swing.py + dy / len * swing.rod;
 
-			// body to the right of the hand = rotate counter-clockwise
-			var angle = -Math.atan2(swing.bx - swing.px, swing.by - swing.py) * 180 / Math.PI;
-			angle = Math.max(-75, Math.min(75, angle));
-			sprite.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+			// body to the right of the hand = rotate counter-clockwise; squashed to a gentle +-18 degrees
+			var raw = -Math.atan2(swing.bx - swing.px, swing.by - swing.py) * 180 / Math.PI,
+				angle = 18 * Math.tanh(raw / 30);
+
+			sprite.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)' + (buddy.classList.contains('is-flipped') ? ' scaleX(-1)' : '');
 
 			swing.raf = window.requestAnimationFrame(step);
 		})(swing.last);
@@ -176,15 +177,22 @@
 		return Math.max(min, Math.min(max, value));
 	}
 
-	function updateBubbleSide() {
-		var r = buddy.getBoundingClientRect();
-		buddy.classList.toggle('bubble-right', r.left + r.width / 2 < window.innerWidth / 2);
+	// Left half of the screen: bubble opens to her right and she is mirrored to face the page.
+	function updateSide(centerX) {
+		if (centerX === undefined) {
+			var r = buddy.getBoundingClientRect();
+			centerX = r.left + r.width / 2;
+		}
+
+		var left = centerX < window.innerWidth / 2;
+		buddy.classList.toggle('bubble-right', left);
+		buddy.classList.toggle('is-flipped', left);
 	}
 
 	function placeSitting(x, y) {
 		buddy.style.left = clamp(x, 4, window.innerWidth - SIT_W - 4) + 'px';
 		buddy.style.top = clamp(y, 60, window.innerHeight - SIT_H - 4) + 'px';
-		updateBubbleSide();
+		updateSide();
 	}
 
 	// Load the hanging frames before the first drag so she never blinks.
@@ -246,6 +254,7 @@
 		if (pointer.dragging) {
 			buddy.style.left = (event.clientX - HAND_X) + 'px';
 			buddy.style.top = (event.clientY - HAND_Y) + 'px';
+			updateSide(event.clientX);
 			moveSwing(event.clientX, event.clientY);
 		}
 	});

@@ -4894,8 +4894,8 @@ input, select, textarea {
 		}
 
 		.contact-buddy.is-dragging .buddy-sprite {
-			width: 95px;
-			height: 112px;
+			width: 73px;
+			height: 116px;
 			background-image: url("../../images/avatar-hang.webp");
 			background-size: 1800% 100%;
 			-moz-animation: buddy-hang 1.8s step-end infinite;
@@ -5020,9 +5020,22 @@ input, select, textarea {
 
 	/* while carried she swings around her hand (rotation set by avatar.js) */
 	.contact-buddy.is-dragging .buddy-sprite {
-		-moz-transform-origin: 30px 2px;
-		-webkit-transform-origin: 30px 2px;
-		-ms-transform-origin: 30px 2px;
-		transform-origin: 30px 2px;
+		-moz-transform-origin: 24px 3px;
+		-webkit-transform-origin: 24px 3px;
+		-ms-transform-origin: 24px 3px;
+		transform-origin: 24px 3px;
 		will-change: transform;
+	}
+
+	/* on the left half of the screen she is mirrored so she faces the page */
+	.contact-buddy.is-flipped .buddy-sprite {
+		-moz-transform: scaleX(-1);
+		-webkit-transform: scaleX(-1);
+		-ms-transform: scaleX(-1);
+		transform: scaleX(-1);
+	}
+
+/* the theme clips buttons; let her swing and mirror outside her button box */
+	.contact-buddy .buddy-toggle {
+		overflow: visible;
 	}
