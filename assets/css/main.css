@@ -5331,3 +5331,39 @@ input, select, textarea {
 		top: 50%;
 		top: 50svh;
 	}
+
+/* Sticky header on iPhones: the page now extends under the status bar (viewport-fit=cover),
+   so the header grows by the safe-area inset and its contents sit below it. A solid strip above
+   the header covers rubber-band overscroll, so no section ever shows through above it. */
+	#header {
+		height: calc(3em + env(safe-area-inset-top, 0px));
+	}
+
+		#header h1,
+		#header nav {
+			top: env(safe-area-inset-top, 0px);
+			height: 3em;
+		}
+
+		#header:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 100%;
+			height: 200px;
+			background: inherit;
+			pointer-events: none;
+		}
+
+	/* White header needs a visible edge against white sections */
+	#header:not(.alt) {
+		box-shadow: 0 1px 0 rgba(52, 57, 64, 0.12), 0 4px 14px rgba(52, 57, 64, 0.1);
+	}
+
+	/* phones: banner content clears the status bar too */
+	@media screen and (max-width: 736px) {
+		#banner {
+			padding-top: calc(21em + env(safe-area-inset-top, 0px));
+		}
+	}
