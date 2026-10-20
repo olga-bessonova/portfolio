@@ -4755,3 +4755,248 @@ input, select, textarea {
 			left: 1em;
 		}
 	}
+
+
+/* ---- Contact buddy: centred bubble, close button, drag (hangs while carried), swipe to dismiss ---- */
+	.contact-buddy .buddy-bubble {
+		text-align: center;
+	}
+
+		.contact-buddy .buddy-bubble p {
+			margin: 0 0 0.75em 0;
+		}
+
+		.contact-buddy .buddy-actions {
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-justify-content: center;
+			-webkit-justify-content: center;
+			-ms-justify-content: center;
+			justify-content: center;
+			gap: 0.6em;
+		}
+
+			.contact-buddy .buddy-actions .buddy-link {
+				margin: 0;
+			}
+
+	/* bubble opens to her right when she has been carried to the left half of the screen */
+	.contact-buddy.bubble-right .buddy-bubble {
+		right: auto;
+		left: 100%;
+		margin-right: 0;
+		margin-left: 0.25em;
+		-moz-transform: translate(-8px, -50%);
+		-webkit-transform: translate(-8px, -50%);
+		-ms-transform: translate(-8px, -50%);
+		transform: translate(-8px, -50%);
+	}
+
+		.contact-buddy.bubble-right .buddy-bubble:before {
+			right: auto;
+			left: -1em;
+		}
+
+		.contact-buddy.bubble-right .buddy-bubble:after {
+			right: auto;
+			left: -7px;
+		}
+
+	.contact-buddy.bubble-right:hover .buddy-bubble,
+	.contact-buddy.bubble-right:focus-within .buddy-bubble,
+	.contact-buddy.bubble-right.is-open .buddy-bubble {
+		-moz-transform: translate(0, -50%);
+		-webkit-transform: translate(0, -50%);
+		-ms-transform: translate(0, -50%);
+		transform: translate(0, -50%);
+	}
+
+	/* small close button, shown on hover (mouse only) */
+	.contact-buddy .buddy-close {
+		position: absolute;
+		top: -4px;
+		right: -2px;
+		z-index: 2;
+		width: 22px;
+		height: 22px;
+		min-width: 0;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		border-radius: 50%;
+		background: #ffffff;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+		color: #343940;
+		font-size: 16px;
+		font-weight: 600;
+		letter-spacing: 0;
+		line-height: 22px;
+		text-align: center;
+		text-transform: none;
+		cursor: pointer;
+		opacity: 0;
+		-moz-transition: opacity 0.2s ease;
+		-webkit-transition: opacity 0.2s ease;
+		-ms-transition: opacity 0.2s ease;
+		transition: opacity 0.2s ease;
+	}
+
+		.contact-buddy .buddy-close:hover {
+			background: #edb842;
+			color: #343940;
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+		}
+
+		.contact-buddy:hover .buddy-close,
+		.contact-buddy .buddy-close:focus-visible {
+			opacity: 1;
+		}
+
+	@media (hover: none) {
+		.contact-buddy .buddy-close {
+			display: none;
+		}
+	}
+
+	/* carried: positioned by left/top from avatar.js */
+	.contact-buddy .buddy-toggle {
+		cursor: grab;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		touch-action: pan-y;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.contact-buddy.is-placed,
+	.contact-buddy.is-placed.is-visible {
+		right: auto;
+		-moz-transform: none;
+		-webkit-transform: none;
+		-ms-transform: none;
+		transform: none;
+	}
+
+	.contact-buddy.is-dragging {
+		opacity: 1;
+		visibility: visible;
+		-moz-transition: none;
+		-webkit-transition: none;
+		-ms-transition: none;
+		transition: none;
+	}
+
+		.contact-buddy.is-dragging .buddy-toggle {
+			cursor: grabbing;
+		}
+
+		.contact-buddy.is-dragging .buddy-sprite {
+			width: 95px;
+			height: 112px;
+			background-image: url("../../images/avatar-hang.webp");
+			background-size: 1800% 100%;
+			-moz-animation: buddy-hang 1.8s step-end infinite;
+			-webkit-animation: buddy-hang 1.8s step-end infinite;
+			animation: buddy-hang 1.8s step-end infinite;
+		}
+
+		.contact-buddy.is-dragging .buddy-bubble,
+		.contact-buddy.is-dragging .buddy-close {
+			display: none;
+		}
+
+	.contact-buddy.is-swiping {
+		-moz-transition: none;
+		-webkit-transition: none;
+		-ms-transition: none;
+		transition: none;
+	}
+
+	.contact-buddy.is-dismissed {
+		display: none;
+	}
+
+	@keyframes buddy-hang {
+		0.0% { background-position: 0.0% 0; }
+		5.5556% { background-position: 5.8824% 0; }
+		11.1111% { background-position: 11.7647% 0; }
+		16.6667% { background-position: 17.6471% 0; }
+		22.2222% { background-position: 23.5294% 0; }
+		27.7778% { background-position: 29.4118% 0; }
+		33.3333% { background-position: 35.2941% 0; }
+		38.8889% { background-position: 41.1765% 0; }
+		44.4444% { background-position: 47.0588% 0; }
+		50.0% { background-position: 52.9412% 0; }
+		55.5556% { background-position: 58.8235% 0; }
+		61.1111% { background-position: 64.7059% 0; }
+		66.6667% { background-position: 70.5882% 0; }
+		72.2222% { background-position: 76.4706% 0; }
+		77.7778% { background-position: 82.3529% 0; }
+		83.3333% { background-position: 88.2353% 0; }
+		88.8889% { background-position: 94.1176% 0; }
+		94.4444% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
+	}
+
+	@-webkit-keyframes buddy-hang {
+		0.0% { background-position: 0.0% 0; }
+		5.5556% { background-position: 5.8824% 0; }
+		11.1111% { background-position: 11.7647% 0; }
+		16.6667% { background-position: 17.6471% 0; }
+		22.2222% { background-position: 23.5294% 0; }
+		27.7778% { background-position: 29.4118% 0; }
+		33.3333% { background-position: 35.2941% 0; }
+		38.8889% { background-position: 41.1765% 0; }
+		44.4444% { background-position: 47.0588% 0; }
+		50.0% { background-position: 52.9412% 0; }
+		55.5556% { background-position: 58.8235% 0; }
+		61.1111% { background-position: 64.7059% 0; }
+		66.6667% { background-position: 70.5882% 0; }
+		72.2222% { background-position: 76.4706% 0; }
+		77.7778% { background-position: 82.3529% 0; }
+		83.3333% { background-position: 88.2353% 0; }
+		88.8889% { background-position: 94.1176% 0; }
+		94.4444% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.contact-buddy.is-dragging .buddy-sprite {
+			-moz-animation: none;
+			-webkit-animation: none;
+			animation: none;
+		}
+	}
+
+/* Phones: no banner avatar (the laptop buddy is enough) */
+	@media screen and (max-width: 736px) {
+		#banner .more {
+			display: none !important;
+		}
+
+		#banner {
+			padding-bottom: 5em;
+		}
+	}
+
+/* Skills tiles highlighted in the About section's blush, separated by thin cream lines */
+	#three.wrapper.style5 .features li,
+	#three.wrapper.style5 .features li:nth-child(odd) {
+		background-color: #f2d3c7 !important;
+		border: solid 1px #f3ecd3;
+	}
+
+/* Bubble buttons never wrap */
+	.contact-buddy .buddy-link {
+		white-space: nowrap;
+	}
+
+	@media screen and (max-width: 736px) {
+		.contact-buddy .buddy-bubble {
+			width: auto;
+			padding: 0.9em 1em 1em 1em;
+		}
+	}
