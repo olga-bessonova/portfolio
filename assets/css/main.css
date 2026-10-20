@@ -4150,3 +4150,75 @@ input, select, textarea {
 	#banner .more {
 		margin-left: -7.5em;
 	}
+
+/* Animated scroll-down chevrons in the banner */
+	#banner .more:after {
+		display: none;
+	}
+
+	#banner .more {
+		height: 10em;
+	}
+
+	#banner .more .chevron {
+		position: absolute;
+		left: 50%;
+		width: 1.8em;
+		height: 1.8em;
+		margin-left: -0.9em;
+		border-right: solid 2px #fff;
+		border-bottom: solid 2px #fff;
+		opacity: 0;
+		-moz-transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+		-moz-animation: chevron-fade 1.8s ease-in-out infinite;
+		-webkit-animation: chevron-fade 1.8s ease-in-out infinite;
+		animation: chevron-fade 1.8s ease-in-out infinite;
+	}
+
+		#banner .more .chevron:nth-child(1) {
+			bottom: 6.6em;
+		}
+
+		#banner .more .chevron:nth-child(2) {
+			bottom: 5em;
+			-moz-animation-delay: 0.2s;
+			-webkit-animation-delay: 0.2s;
+			animation-delay: 0.2s;
+		}
+
+		#banner .more .chevron:nth-child(3) {
+			bottom: 3.4em;
+			-moz-animation-delay: 0.4s;
+			-webkit-animation-delay: 0.4s;
+			animation-delay: 0.4s;
+		}
+
+	@-moz-keyframes chevron-fade {
+		0%, 100% { opacity: 0; }
+		35% { opacity: 1; }
+		70% { opacity: 0; }
+	}
+
+	@-webkit-keyframes chevron-fade {
+		0%, 100% { opacity: 0; }
+		35% { opacity: 1; }
+		70% { opacity: 0; }
+	}
+
+	@keyframes chevron-fade {
+		0%, 100% { opacity: 0; }
+		35% { opacity: 1; }
+		70% { opacity: 0; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		#banner .more .chevron {
+			-moz-animation: none;
+			-webkit-animation: none;
+			animation: none;
+			opacity: 0.8;
+		}
+	}
