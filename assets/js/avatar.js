@@ -1,6 +1,6 @@
 /*
-	Banner avatar: loops "trying to lift the next section" while the page is at the top.
-	On the first scroll she lifts it, celebrates and leaves (until the page is reloaded),
+	Banner avatar: loops idle -> confused -> trying to lift while the page is at the top.
+	On the first scroll she is happy, then leaves (until the page is reloaded),
 	and a small contact buddy appears in the bottom-right corner.
 */
 (function() {
@@ -29,7 +29,7 @@
 		started = true;
 		window.removeEventListener('scroll', onScroll);
 		avatarLink.classList.add('is-happy');
-		window.setTimeout(showBuddy, reduceMotion ? 0 : 1600);
+		window.setTimeout(showBuddy, reduceMotion ? 0 : 1300);
 	}
 
 	// Reloaded somewhere down the page: skip straight to the buddy.

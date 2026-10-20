@@ -4151,33 +4151,33 @@ input, select, textarea {
 		margin-left: -7.5em;
 	}
 
-/* Banner avatar: tries to lift the next section (frames 0-5, images/avatar-lift.webp),
-   then lifts it and celebrates on the first scroll (frames 6-9) before leaving. See assets/js/avatar.js */
+/* Banner avatar (images/avatar-girl.webp, 36 frames): idle head wobble (10) -> confused (10) -> trying to lift (15), looping;
+   on the first scroll she is happy (10) and then leaves until reload. See assets/js/avatar.js */
 	#banner .more:after {
 		display: none;
 	}
 
 	#banner .more {
-		height: 12em;
+		height: 11em;
 	}
 
 		#banner .more .avatar {
 			position: absolute;
 			left: 50%;
-			bottom: 0.6em;
-			width: 12em;
-			height: 9.68em;
-			margin-left: -4.4em;
-			background: url("../../images/avatar-lift.webp") 0 0 / 1000% 100% no-repeat;
-			-moz-animation: avatar-trying 5.2s step-end infinite;
-			-webkit-animation: avatar-trying 5.2s step-end infinite;
-			animation: avatar-trying 5.2s step-end infinite;
+			bottom: 0.8em;
+			width: 7.38em;
+			height: 9em;
+			margin-left: -3.69em;
+			background: url("../../images/avatar-girl.webp") 0 0 / 3600% 100% no-repeat;
+			-moz-animation: avatar-loop 3.85s step-end infinite;
+			-webkit-animation: avatar-loop 3.85s step-end infinite;
+			animation: avatar-loop 3.85s step-end infinite;
 		}
 
 		#banner .more.is-happy .avatar {
-			-moz-animation: avatar-happy 1.4s step-end 1 forwards;
-			-webkit-animation: avatar-happy 1.4s step-end 1 forwards;
-			animation: avatar-happy 1.4s step-end 1 forwards;
+			-moz-animation: avatar-happy 1s step-end 1 forwards;
+			-webkit-animation: avatar-happy 1s step-end 1 forwards;
+			animation: avatar-happy 1s step-end 1 forwards;
 		}
 
 		#banner .more.is-gone {
@@ -4190,40 +4190,110 @@ input, select, textarea {
 			transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 		}
 
-	@keyframes avatar-trying {
-		0% { background-position: 0.0% 0; }
-		22% { background-position: 11.1111% 0; }
-		30% { background-position: 22.2222% 0; }
-		38% { background-position: 33.3333% 0; }
-		47% { background-position: 44.4444% 0; }
-		62% { background-position: 55.5556% 0; }
-		100% { background-position: 55.5556% 0; }
+	@keyframes avatar-loop {
+		0.0% { background-position: 0.0% 0; }
+		2.8571% { background-position: 2.8571% 0; }
+		5.7143% { background-position: 5.7143% 0; }
+		8.5714% { background-position: 8.5714% 0; }
+		11.4286% { background-position: 11.4286% 0; }
+		14.2857% { background-position: 8.5714% 0; }
+		17.1429% { background-position: 5.7143% 0; }
+		20.0% { background-position: 2.8571% 0; }
+		22.8571% { background-position: 0.0% 0; }
+		25.7143% { background-position: 0.0% 0; }
+		28.5714% { background-position: 14.2857% 0; }
+		31.4286% { background-position: 17.1429% 0; }
+		34.2857% { background-position: 20.0% 0; }
+		37.1429% { background-position: 22.8571% 0; }
+		40.0% { background-position: 25.7143% 0; }
+		42.8571% { background-position: 28.5714% 0; }
+		45.7143% { background-position: 31.4286% 0; }
+		48.5714% { background-position: 31.4286% 0; }
+		51.4286% { background-position: 31.4286% 0; }
+		54.2857% { background-position: 31.4286% 0; }
+		57.1429% { background-position: 34.2857% 0; }
+		60.0% { background-position: 37.1429% 0; }
+		62.8571% { background-position: 40.0% 0; }
+		65.7143% { background-position: 42.8571% 0; }
+		68.5714% { background-position: 45.7143% 0; }
+		71.4286% { background-position: 48.5714% 0; }
+		74.2857% { background-position: 51.4286% 0; }
+		77.1429% { background-position: 54.2857% 0; }
+		80.0% { background-position: 57.1429% 0; }
+		82.8571% { background-position: 60.0% 0; }
+		85.7143% { background-position: 62.8571% 0; }
+		88.5714% { background-position: 65.7143% 0; }
+		91.4286% { background-position: 68.5714% 0; }
+		94.2857% { background-position: 65.7143% 0; }
+		97.1429% { background-position: 68.5714% 0; }
+		100% { background-position: 68.5714% 0; }
 	}
 
-	@-webkit-keyframes avatar-trying {
-		0% { background-position: 0.0% 0; }
-		22% { background-position: 11.1111% 0; }
-		30% { background-position: 22.2222% 0; }
-		38% { background-position: 33.3333% 0; }
-		47% { background-position: 44.4444% 0; }
-		62% { background-position: 55.5556% 0; }
-		100% { background-position: 55.5556% 0; }
+	@-webkit-keyframes avatar-loop {
+		0.0% { background-position: 0.0% 0; }
+		2.8571% { background-position: 2.8571% 0; }
+		5.7143% { background-position: 5.7143% 0; }
+		8.5714% { background-position: 8.5714% 0; }
+		11.4286% { background-position: 11.4286% 0; }
+		14.2857% { background-position: 8.5714% 0; }
+		17.1429% { background-position: 5.7143% 0; }
+		20.0% { background-position: 2.8571% 0; }
+		22.8571% { background-position: 0.0% 0; }
+		25.7143% { background-position: 0.0% 0; }
+		28.5714% { background-position: 14.2857% 0; }
+		31.4286% { background-position: 17.1429% 0; }
+		34.2857% { background-position: 20.0% 0; }
+		37.1429% { background-position: 22.8571% 0; }
+		40.0% { background-position: 25.7143% 0; }
+		42.8571% { background-position: 28.5714% 0; }
+		45.7143% { background-position: 31.4286% 0; }
+		48.5714% { background-position: 31.4286% 0; }
+		51.4286% { background-position: 31.4286% 0; }
+		54.2857% { background-position: 31.4286% 0; }
+		57.1429% { background-position: 34.2857% 0; }
+		60.0% { background-position: 37.1429% 0; }
+		62.8571% { background-position: 40.0% 0; }
+		65.7143% { background-position: 42.8571% 0; }
+		68.5714% { background-position: 45.7143% 0; }
+		71.4286% { background-position: 48.5714% 0; }
+		74.2857% { background-position: 51.4286% 0; }
+		77.1429% { background-position: 54.2857% 0; }
+		80.0% { background-position: 57.1429% 0; }
+		82.8571% { background-position: 60.0% 0; }
+		85.7143% { background-position: 62.8571% 0; }
+		88.5714% { background-position: 65.7143% 0; }
+		91.4286% { background-position: 68.5714% 0; }
+		94.2857% { background-position: 65.7143% 0; }
+		97.1429% { background-position: 68.5714% 0; }
+		100% { background-position: 68.5714% 0; }
 	}
 
 	@keyframes avatar-happy {
-		0% { background-position: 66.6667% 0; }
-		18% { background-position: 77.7778% 0; }
-		36% { background-position: 88.8889% 0; }
-		58% { background-position: 100.0% 0; }
-		100% { background-position: 100.0% 0; }
+		0.0% { background-position: 71.4286% 0; }
+		10.0% { background-position: 74.2857% 0; }
+		20.0% { background-position: 77.1429% 0; }
+		30.0% { background-position: 80.0% 0; }
+		40.0% { background-position: 82.8571% 0; }
+		50.0% { background-position: 85.7143% 0; }
+		60.0% { background-position: 88.5714% 0; }
+		70.0% { background-position: 91.4286% 0; }
+		80.0% { background-position: 94.2857% 0; }
+		90.0% { background-position: 97.1429% 0; }
+		100% { background-position: 97.1429% 0; }
 	}
 
 	@-webkit-keyframes avatar-happy {
-		0% { background-position: 66.6667% 0; }
-		18% { background-position: 77.7778% 0; }
-		36% { background-position: 88.8889% 0; }
-		58% { background-position: 100.0% 0; }
-		100% { background-position: 100.0% 0; }
+		0.0% { background-position: 71.4286% 0; }
+		10.0% { background-position: 74.2857% 0; }
+		20.0% { background-position: 77.1429% 0; }
+		30.0% { background-position: 80.0% 0; }
+		40.0% { background-position: 82.8571% 0; }
+		50.0% { background-position: 85.7143% 0; }
+		60.0% { background-position: 88.5714% 0; }
+		70.0% { background-position: 91.4286% 0; }
+		80.0% { background-position: 94.2857% 0; }
+		90.0% { background-position: 97.1429% 0; }
+		100% { background-position: 97.1429% 0; }
 	}
 
 	/* The theme hides this link on phones; show the avatar there too */
@@ -4233,7 +4303,7 @@ input, select, textarea {
 		}
 
 		#banner {
-			padding-bottom: 12em;
+			padding-bottom: 11em;
 		}
 	}
 
@@ -4243,11 +4313,11 @@ input, select, textarea {
 			-moz-animation: none;
 			-webkit-animation: none;
 			animation: none;
-			background-position: 55.5556% 0;
+			background-position: 0 0;
 		}
 	}
 
-/* Contact buddy: small waving avatar, bottom-right, with a speech bubble on hover / tap */
+/* Contact buddy: small happy avatar, bottom-right, with a speech bubble on hover / tap */
 	.contact-buddy {
 		position: fixed;
 		right: 1.25em;
@@ -4306,7 +4376,7 @@ input, select, textarea {
 
 			.contact-buddy .buddy-toggle img {
 				display: block;
-				width: 73px;
+				width: 46px;
 				height: 80px;
 				-moz-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
 				-webkit-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
@@ -4425,7 +4495,7 @@ input, select, textarea {
 		}
 
 			.contact-buddy .buddy-toggle img {
-				width: 58px;
+				width: 37px;
 				height: 64px;
 			}
 
