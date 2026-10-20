@@ -5289,3 +5289,10 @@ input, select, textarea {
 		border-radius: 1px;
 		background: #343940;
 	}
+
+/* Phones: project title sits closer to its image */
+	@media screen and (max-width: 980px) {
+		#two .spotlight .content {
+			padding-top: 1.1em;
+		}
+	}
