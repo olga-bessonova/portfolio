@@ -5368,9 +5368,17 @@ input, select, textarea {
 		}
 	}
 
-/* Desktop Safari paints the scrollbar track with the root background; keep it neutral
-   (the body keeps its mustard for the load screen) */
-	html {
+/* Desktop Safari tints the scrollbar from the body/root background: keep both white */
+	html,
+	body {
 		background: #ffffff;
+	}
+
+	html {
 		scrollbar-color: rgba(52, 57, 64, 0.45) #ffffff;
+	}
+
+	/* the load screen colour lives on the banner overlay (#banner:after), not the body */
+	body.is-menu-visible {
+		background: #343940;
 	}
