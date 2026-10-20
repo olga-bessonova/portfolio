@@ -4412,3 +4412,42 @@ input, select, textarea {
 			filter: none;
 		}
 	}
+
+/* Projects: the whole row colors its image on hover */
+	#two .spotlight:hover .image img {
+		-moz-filter: none;
+		-webkit-filter: none;
+		filter: none;
+	}
+
+/* White navigation bar once scrolled */
+	#header {
+		background: #ffffff;
+		box-shadow: 0 1px 0 rgba(52, 57, 64, 0.1);
+	}
+
+	#header.alt {
+		box-shadow: none;
+	}
+
+/* Mustard contact footer with ink text */
+	#footer,
+	body.landing #footer,
+	body.is-mobile.landing #footer {
+		background-color: #edb842;
+		color: #343940;
+	}
+
+		#footer a,
+		#footer .icons a {
+			color: #343940;
+		}
+
+			#footer .icons a:hover,
+			#footer .email-resume a:hover {
+				color: #000;
+			}
+
+		#footer .email {
+			border-right-color: rgba(52, 57, 64, 0.4);
+		}
