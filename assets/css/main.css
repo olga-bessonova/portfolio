@@ -4317,18 +4317,19 @@ input, select, textarea {
 		}
 	}
 
-/* Contact buddy: small happy avatar, bottom-right, with a speech bubble on hover / tap */
+/* Contact buddy: Olga on her laptop (images/avatar-laptop.webp, 8 frames), fixed at the right edge,
+   vertically centred; hover or tap opens a "Let's connect" bubble to her left. See assets/js/avatar.js */
 	.contact-buddy {
 		position: fixed;
-		right: 1.25em;
-		bottom: 1.25em;
+		right: 0.75em;
+		top: 50%;
 		z-index: 9999;
 		opacity: 0;
 		visibility: hidden;
-		-moz-transform: translateY(1.5em) scale(0.9);
-		-webkit-transform: translateY(1.5em) scale(0.9);
-		-ms-transform: translateY(1.5em) scale(0.9);
-		transform: translateY(1.5em) scale(0.9);
+		-moz-transform: translate(2em, -50%);
+		-webkit-transform: translate(2em, -50%);
+		-ms-transform: translate(2em, -50%);
+		transform: translate(2em, -50%);
 		-moz-transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
 		-webkit-transition: opacity 0.4s ease, -webkit-transform 0.4s ease, visibility 0s linear 0.4s;
 		-ms-transition: opacity 0.4s ease, -ms-transform 0.4s ease, visibility 0s linear 0.4s;
@@ -4338,10 +4339,10 @@ input, select, textarea {
 		.contact-buddy.is-visible {
 			opacity: 1;
 			visibility: visible;
-			-moz-transform: none;
-			-webkit-transform: none;
-			-ms-transform: none;
-			transform: none;
+			-moz-transform: translate(0, -50%);
+			-webkit-transform: translate(0, -50%);
+			-ms-transform: translate(0, -50%);
+			transform: translate(0, -50%);
 			-moz-transition-delay: 0s;
 			-webkit-transition-delay: 0s;
 			-ms-transition-delay: 0s;
@@ -4374,27 +4375,25 @@ input, select, textarea {
 				border-radius: 8px;
 			}
 
-			.contact-buddy .buddy-toggle img {
+			.contact-buddy .buddy-sprite {
 				display: block;
-				width: 46px;
-				height: 80px;
-				-moz-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
-				-webkit-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
-				filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.25));
-				-moz-transform-origin: 50% 100%;
-				-webkit-transform-origin: 50% 100%;
-				-ms-transform-origin: 50% 100%;
-				transform-origin: 50% 100%;
-				-moz-animation: buddy-bob 4s ease-in-out infinite;
-				-webkit-animation: buddy-bob 4s ease-in-out infinite;
-				animation: buddy-bob 4s ease-in-out infinite;
+				width: 90px;
+				height: 140px;
+				background: url("../../images/avatar-laptop.webp") 0 0 / 800% 100% no-repeat;
+				-moz-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+				-webkit-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+				filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+				-moz-animation: buddy-laptop 2.4s step-end infinite;
+				-webkit-animation: buddy-laptop 2.4s step-end infinite;
+				animation: buddy-laptop 2.4s step-end infinite;
 			}
 
 		.contact-buddy .buddy-bubble {
 			position: absolute;
-			right: 0;
-			bottom: 76px;
+			right: 100%;
+			top: 50%;
 			width: 15em;
+			margin-right: 0.25em;
 			padding: 1em 1.1em 1.1em 1.1em;
 			background: #ffffff;
 			color: #343940;
@@ -4406,23 +4405,34 @@ input, select, textarea {
 			text-align: left;
 			opacity: 0;
 			visibility: hidden;
-			-moz-transform: translateY(8px);
-			-webkit-transform: translateY(8px);
-			-ms-transform: translateY(8px);
-			transform: translateY(8px);
+			-moz-transform: translate(8px, -50%);
+			-webkit-transform: translate(8px, -50%);
+			-ms-transform: translate(8px, -50%);
+			transform: translate(8px, -50%);
 			-moz-transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 			-webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease, visibility 0s linear 0.2s;
 			-ms-transition: opacity 0.2s ease, -ms-transform 0.2s ease, visibility 0s linear 0.2s;
 			transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 		}
 
+			/* invisible bridge so the bubble stays open while the pointer crosses the gap */
+			.contact-buddy .buddy-bubble:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: -1em;
+				width: 1em;
+				height: 100%;
+			}
+
 			.contact-buddy .buddy-bubble:after {
 				content: '';
 				position: absolute;
-				right: 28px;
-				bottom: -8px;
-				width: 16px;
-				height: 16px;
+				right: -7px;
+				top: 50%;
+				width: 14px;
+				height: 14px;
+				margin-top: -7px;
 				background: #ffffff;
 				-moz-transform: rotate(45deg);
 				-webkit-transform: rotate(45deg);
@@ -4462,50 +4472,57 @@ input, select, textarea {
 		.contact-buddy.is-open .buddy-bubble {
 			opacity: 1;
 			visibility: visible;
-			-moz-transform: none;
-			-webkit-transform: none;
-			-ms-transform: none;
-			transform: none;
+			-moz-transform: translate(0, -50%);
+			-webkit-transform: translate(0, -50%);
+			-ms-transform: translate(0, -50%);
+			transform: translate(0, -50%);
 			-moz-transition-delay: 0s;
 			-webkit-transition-delay: 0s;
 			-ms-transition-delay: 0s;
 			transition-delay: 0s;
 		}
 
-	@keyframes buddy-bob {
-		0%, 70%, 100% { transform: rotate(0deg); }
-		76% { transform: rotate(-6deg); }
-		82% { transform: rotate(5deg); }
-		88% { transform: rotate(-3deg); }
-		94% { transform: rotate(0deg); }
+	@keyframes buddy-laptop {
+		0.0% { background-position: 0.0% 0; }
+		12.5% { background-position: 14.2857% 0; }
+		25.0% { background-position: 28.5714% 0; }
+		37.5% { background-position: 42.8571% 0; }
+		50.0% { background-position: 57.1429% 0; }
+		62.5% { background-position: 71.4286% 0; }
+		75.0% { background-position: 85.7143% 0; }
+		87.5% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
 	}
 
-	@-webkit-keyframes buddy-bob {
-		0%, 70%, 100% { -webkit-transform: rotate(0deg); }
-		76% { -webkit-transform: rotate(-6deg); }
-		82% { -webkit-transform: rotate(5deg); }
-		88% { -webkit-transform: rotate(-3deg); }
-		94% { -webkit-transform: rotate(0deg); }
+	@-webkit-keyframes buddy-laptop {
+		0.0% { background-position: 0.0% 0; }
+		12.5% { background-position: 14.2857% 0; }
+		25.0% { background-position: 28.5714% 0; }
+		37.5% { background-position: 42.8571% 0; }
+		50.0% { background-position: 57.1429% 0; }
+		62.5% { background-position: 71.4286% 0; }
+		75.0% { background-position: 85.7143% 0; }
+		87.5% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
 	}
 
 	@media screen and (max-width: 736px) {
 		.contact-buddy {
-			right: 0.75em;
-			bottom: 0.75em;
+			right: 0.4em;
 		}
 
-			.contact-buddy .buddy-toggle img {
-				width: 37px;
-				height: 64px;
+			.contact-buddy .buddy-sprite {
+				width: 64px;
+				height: 100px;
 			}
 
 			.contact-buddy .buddy-bubble {
-				bottom: 60px;
+				width: 13em;
 			}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.contact-buddy .buddy-toggle img {
+		.contact-buddy .buddy-sprite {
 			-moz-animation: none;
 			-webkit-animation: none;
 			animation: none;
