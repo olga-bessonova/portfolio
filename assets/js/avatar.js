@@ -4,8 +4,9 @@
 
 	Contact buddy (laptop girl): shows at the right edge whenever the banner is out of view,
 	fades out when you scroll back up to it. Hover/tap opens a "Let's connect" bubble.
-	- Mouse: drag her anywhere (she hangs from the cursor and swings with inertia); a small x hides her.
-	- Touch: carry her the same way; a quick flick to the right dismisses her.
+	- Mouse: drag her anywhere (she hangs from the cursor and swings with inertia); a small x hides her,
+	  and so does carrying her past the edge of the screen.
+	- Touch: carry her the same way; a quick flick to the right (or past an edge) dismisses her.
 	Hidden or dismissed, she stays away until the page is reloaded.
 */
 (function() {
@@ -255,23 +256,39 @@
 
 		if (pointer.dragging) {
 			stopSwing();
-			buddy.classList.remove('is-dragging');
 
 			var x = event.type === 'pointercancel' ? pointer.lastX : event.clientX,
 				y = event.type === 'pointercancel' ? pointer.lastY : event.clientY,
 				dx = x - pointer.x,
 				dy = y - pointer.y;
 
-			// Touch: a quick flick to the right sends her away.
-			if (pointer.type === 'touch' && event.type !== 'pointercancel' && dx > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && (pointer.vx || 0) > 0.5) {
-				buddy.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
-				buddy.style.transform = 'translateX(120vw)';
+			// How much of her is still on screen (measured on the hanging sprite, before she sits down)
+			var r = sprite.getBoundingClientRect(),
+				W = window.innerWidth, H = window.innerHeight,
+				visible = Math.max(0, Math.min(r.right, W) - Math.max(r.left, 0)) * Math.max(0, Math.min(r.bottom, H) - Math.max(r.top, 0)),
+				mostlyOff = r.width * r.height > 0 && visible / (r.width * r.height) < 0.6,
+				EDGE = pointer.type === 'touch' ? 14 : 6,
+				offLeft = x <= EDGE || (mostlyOff && r.left < 0),
+				offRight = x >= W - EDGE || (mostlyOff && r.right > W),
+				offTop = y <= EDGE || (mostlyOff && r.top < 0),
+				offBottom = y >= H - EDGE || (mostlyOff && r.bottom > H),
+				flickRight = pointer.type === 'touch' && event.type !== 'pointercancel' && dx > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && (pointer.vx || 0) > 0.5;
+
+			// Carried past the edge of the screen (or, on touch, flicked to the right): she leaves that way.
+			if (flickRight || offLeft || offRight || offTop || offBottom) {
+				var away = offLeft ? 'translateX(-120vw)' : offTop ? 'translateY(-120vh)' : offBottom ? 'translateY(120vh)' : 'translateX(120vw)';
+
+				buddy.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+				buddy.style.transform = away;
 				buddy.style.opacity = '0';
+				buddy.classList.remove('is-dragging');
 				dismiss();
 			}
-			else
+			else {
 				// Sit down roughly where she was dropped.
+				buddy.classList.remove('is-dragging');
 				placeSitting(x - SIT_W / 2, y - 20);
+			}
 
 			suppressClick = true;
 		}
