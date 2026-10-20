@@ -5000,3 +5000,29 @@ input, select, textarea {
 			padding: 0.9em 1em 1em 1em;
 		}
 	}
+
+/* Sitting buddy drawn at the same scale as the hanging one (her laptop sheet is drawn ~1.6x larger) */
+	.contact-buddy .buddy-sprite {
+		width: 57px;
+		height: 88px;
+	}
+
+	@media screen and (max-width: 736px) {
+		.contact-buddy .buddy-sprite {
+			width: 57px;
+			height: 88px;
+		}
+
+			.contact-buddy .buddy-bubble {
+				bottom: auto;
+			}
+	}
+
+	/* while carried she swings around her hand (rotation set by avatar.js) */
+	.contact-buddy.is-dragging .buddy-sprite {
+		-moz-transform-origin: 30px 2px;
+		-webkit-transform-origin: 30px 2px;
+		-ms-transform-origin: 30px 2px;
+		transform-origin: 30px 2px;
+		will-change: transform;
+	}

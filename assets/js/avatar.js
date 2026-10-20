@@ -4,7 +4,7 @@
 
 	Contact buddy (laptop girl): shows at the right edge whenever the banner is out of view,
 	fades out when you scroll back up to it. Hover/tap opens a "Let's connect" bubble.
-	- Mouse: drag her anywhere (she hangs from the cursor while carried); a small x hides her.
+	- Mouse: drag her anywhere (she hangs from the cursor and swings with inertia); a small x hides her.
 	- Touch: swipe her to the right to dismiss.
 	Hidden or dismissed, she stays away until the page is reloaded.
 */
@@ -28,7 +28,66 @@
 
 	// Hanging sprite: where her raised hand is inside the 95x112 frame (see main.css).
 	var HAND_X = 30, HAND_Y = 2,
-		SIT_W = 90, SIT_H = 140;
+		SIT_W = 57, SIT_H = 88;
+
+	// --- Swing while carried: her body is a weight on a rod hanging from the cursor ---
+	var sprite = buddy.querySelector('.buddy-sprite'),
+		swing = null;
+
+	function startSwing(x, y) {
+		if (reduceMotion)
+			return;
+
+		var ROD = 58;
+		swing = { px: x, py: y, bx: x, by: y + ROD, ox: x, oy: y + ROD, rod: ROD, last: performance.now(), raf: 0 };
+
+		(function step(now) {
+			if (!swing)
+				return;
+
+			var dt = Math.min(0.033, (now - swing.last) / 1000) || 0.016;
+			swing.last = now;
+
+			// Verlet: keep momentum (with a little air drag), pull down with gravity
+			var vx = (swing.bx - swing.ox) * 0.94,
+				vy = (swing.by - swing.oy) * 0.94;
+
+			swing.ox = swing.bx;
+			swing.oy = swing.by;
+			swing.bx += vx;
+			swing.by += vy + 2400 * dt * dt;
+
+			// keep the rod length fixed
+			var dx = swing.bx - swing.px,
+				dy = swing.by - swing.py,
+				len = Math.sqrt(dx * dx + dy * dy) || 1;
+
+			swing.bx = swing.px + dx / len * swing.rod;
+			swing.by = swing.py + dy / len * swing.rod;
+
+			// body to the right of the hand = rotate counter-clockwise
+			var angle = -Math.atan2(swing.bx - swing.px, swing.by - swing.py) * 180 / Math.PI;
+			angle = Math.max(-75, Math.min(75, angle));
+			sprite.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+
+			swing.raf = window.requestAnimationFrame(step);
+		})(swing.last);
+	}
+
+	function moveSwing(x, y) {
+		if (swing) {
+			swing.px = x;
+			swing.py = y;
+		}
+	}
+
+	function stopSwing() {
+		if (swing)
+			window.cancelAnimationFrame(swing.raf);
+
+		swing = null;
+		sprite.style.transform = '';
+	}
 
 	function setOpen(open) {
 		buddy.classList.toggle('is-open', open);
@@ -181,11 +240,13 @@
 			pointer.dragging = true;
 			setOpen(false);
 			buddy.classList.add('is-dragging', 'is-placed');
+			startSwing(event.clientX, event.clientY);
 		}
 
 		if (pointer.dragging) {
 			buddy.style.left = (event.clientX - HAND_X) + 'px';
 			buddy.style.top = (event.clientY - HAND_Y) + 'px';
+			moveSwing(event.clientX, event.clientY);
 		}
 	});
 
@@ -194,6 +255,7 @@
 			return;
 
 		if (pointer.dragging) {
+			stopSwing();
 			buddy.classList.remove('is-dragging');
 			// Sit down roughly where she was dropped (a cancelled pointer reports 0,0: use the last move).
 			var x = event.type === 'pointercancel' ? pointer.lastX : event.clientX,
