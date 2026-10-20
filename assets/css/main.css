@@ -4640,3 +4640,21 @@ input, select, textarea {
 		#footer .email {
 			border-right-color: rgba(52, 57, 64, 0.4);
 		}
+
+/* Banner avatar sits at the bottom-left of the banner */
+	#banner .more {
+		left: 2.5em;
+		margin-left: 0;
+		width: 14em;
+	}
+
+		#banner .more .avatar {
+			left: 0;
+			margin-left: 0;
+		}
+
+	@media screen and (max-width: 736px) {
+		#banner .more {
+			left: 1em;
+		}
+	}
