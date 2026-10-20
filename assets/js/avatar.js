@@ -305,9 +305,25 @@
 	toggle.addEventListener('pointerup', endPointer);
 	toggle.addEventListener('pointercancel', endPointer);
 
+	// Her resting spot is pinned in pixels and only recomputed on a real resize (width change):
+	// height-only changes are the mobile address bar hiding/showing, which made her jump.
+	var lastWidth = window.innerWidth;
+
+	function pinDefault() {
+		if (!buddy.classList.contains('is-placed'))
+			buddy.style.top = Math.round(window.innerHeight / 2) + 'px';
+	}
+
+	pinDefault();
+
 	window.addEventListener('resize', function() {
-		if (buddy.classList.contains('is-placed'))
-			placeSitting(parseFloat(buddy.style.left) || 0, parseFloat(buddy.style.top) || 0);
+		if (window.innerWidth !== lastWidth) {
+			lastWidth = window.innerWidth;
+			pinDefault();
+
+			if (buddy.classList.contains('is-placed'))
+				placeSitting(parseFloat(buddy.style.left) || 0, parseFloat(buddy.style.top) || 0);
+		}
 
 		updateBuddy();
 	});

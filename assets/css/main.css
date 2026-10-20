@@ -5324,3 +5324,10 @@ input, select, textarea {
 				vertical-align: middle;
 			}
 	}
+
+/* Mobile browsers resize the viewport as the address bar hides/shows after a scroll; anchor the
+   buddy to the small (stable) viewport height so she doesn't jump when scrolling stops */
+	.contact-buddy {
+		top: 50%;
+		top: 50svh;
+	}
