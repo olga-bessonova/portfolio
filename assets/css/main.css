@@ -4151,7 +4151,7 @@ input, select, textarea {
 		margin-left: -7.5em;
 	}
 
-/* Animated scroll-down chevrons in the banner */
+/* Jumping avatar in the banner: hops every few seconds, links to About me */
 	#banner .more:after {
 		display: none;
 	}
@@ -4160,66 +4160,96 @@ input, select, textarea {
 		height: 10em;
 	}
 
-	#banner .more .chevron {
-		position: absolute;
-		left: 50%;
-		width: 1.8em;
-		height: 1.8em;
-		margin-left: -0.9em;
-		border-right: solid 2px #fff;
-		border-bottom: solid 2px #fff;
-		opacity: 0;
-		-moz-transform: rotate(45deg);
-		-webkit-transform: rotate(45deg);
-		-ms-transform: rotate(45deg);
-		transform: rotate(45deg);
-		-moz-animation: chevron-fade 1.8s ease-in-out infinite;
-		-webkit-animation: chevron-fade 1.8s ease-in-out infinite;
-		animation: chevron-fade 1.8s ease-in-out infinite;
-	}
-
-		#banner .more .chevron:nth-child(1) {
-			bottom: 6.6em;
+		#banner .more .avatar {
+			position: absolute;
+			left: 50%;
+			bottom: 2.6em;
+			width: 4.6em;
+			height: 4.6em;
+			margin-left: -2.3em;
+			-moz-transform-origin: 50% 100%;
+			-webkit-transform-origin: 50% 100%;
+			-ms-transform-origin: 50% 100%;
+			transform-origin: 50% 100%;
+			-moz-animation: avatar-hop 3.6s ease-in-out infinite;
+			-webkit-animation: avatar-hop 3.6s ease-in-out infinite;
+			animation: avatar-hop 3.6s ease-in-out infinite;
 		}
 
-		#banner .more .chevron:nth-child(2) {
-			bottom: 5em;
-			-moz-animation-delay: 0.2s;
-			-webkit-animation-delay: 0.2s;
-			animation-delay: 0.2s;
+		#banner .more .avatar-shadow {
+			position: absolute;
+			left: 50%;
+			bottom: 2.1em;
+			width: 3.4em;
+			height: 0.7em;
+			margin-left: -1.7em;
+			border-radius: 50%;
+			background: rgba(0, 0, 0, 0.35);
+			-moz-animation: avatar-shadow 3.6s ease-in-out infinite;
+			-webkit-animation: avatar-shadow 3.6s ease-in-out infinite;
+			animation: avatar-shadow 3.6s ease-in-out infinite;
 		}
 
-		#banner .more .chevron:nth-child(3) {
-			bottom: 3.4em;
-			-moz-animation-delay: 0.4s;
-			-webkit-animation-delay: 0.4s;
-			animation-delay: 0.4s;
+		#banner .more:hover .avatar,
+		#banner .more:focus .avatar,
+		#banner .more:hover .avatar-shadow,
+		#banner .more:focus .avatar-shadow {
+			-moz-animation-duration: 1.2s;
+			-webkit-animation-duration: 1.2s;
+			animation-duration: 1.2s;
 		}
 
-	@-moz-keyframes chevron-fade {
-		0%, 100% { opacity: 0; }
-		35% { opacity: 1; }
-		70% { opacity: 0; }
+	@keyframes avatar-hop {
+		0%, 52% { transform: translateY(0) scale(1, 1); }
+		56% { transform: translateY(0) scale(1.08, 0.9); }
+		64% { transform: translateY(-1.6em) scale(0.96, 1.05); }
+		72% { transform: translateY(0) scale(1.06, 0.92); }
+		76% { transform: translateY(0) scale(1, 1); }
+		82% { transform: translateY(-0.8em) scale(0.98, 1.02); }
+		88% { transform: translateY(0) scale(1.04, 0.95); }
+		92%, 100% { transform: translateY(0) scale(1, 1); }
 	}
 
-	@-webkit-keyframes chevron-fade {
-		0%, 100% { opacity: 0; }
-		35% { opacity: 1; }
-		70% { opacity: 0; }
+	@-webkit-keyframes avatar-hop {
+		0%, 52% { -webkit-transform: translateY(0) scale(1, 1); }
+		56% { -webkit-transform: translateY(0) scale(1.08, 0.9); }
+		64% { -webkit-transform: translateY(-1.6em) scale(0.96, 1.05); }
+		72% { -webkit-transform: translateY(0) scale(1.06, 0.92); }
+		76% { -webkit-transform: translateY(0) scale(1, 1); }
+		82% { -webkit-transform: translateY(-0.8em) scale(0.98, 1.02); }
+		88% { -webkit-transform: translateY(0) scale(1.04, 0.95); }
+		92%, 100% { -webkit-transform: translateY(0) scale(1, 1); }
 	}
 
-	@keyframes chevron-fade {
-		0%, 100% { opacity: 0; }
-		35% { opacity: 1; }
-		70% { opacity: 0; }
+	@keyframes avatar-shadow {
+		0%, 52%, 72%, 76%, 88%, 100% { transform: scale(1); opacity: 1; }
+		64% { transform: scale(0.6); opacity: 0.5; }
+		82% { transform: scale(0.8); opacity: 0.75; }
+	}
+
+	@-webkit-keyframes avatar-shadow {
+		0%, 52%, 72%, 76%, 88%, 100% { -webkit-transform: scale(1); opacity: 1; }
+		64% { -webkit-transform: scale(0.6); opacity: 0.5; }
+		82% { -webkit-transform: scale(0.8); opacity: 0.75; }
+	}
+
+	/* The theme hides this link on phones; the avatar is small enough to show */
+	@media screen and (max-width: 736px) {
+		#banner .more {
+			display: block;
+		}
+
+		#banner {
+			padding-bottom: 8em;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		#banner .more .chevron {
+		#banner .more .avatar,
+		#banner .more .avatar-shadow {
 			-moz-animation: none;
 			-webkit-animation: none;
 			animation: none;
-			opacity: 0.8;
 		}
 	}
 
