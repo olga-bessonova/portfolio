@@ -4265,3 +4265,72 @@ input, select, textarea {
 			border-top-color: rgba(52, 57, 64, 0.2);
 		}
 	}
+
+/* Mustard load screen, header and menu with ink text */
+	body {
+		background: #edb842;
+	}
+
+	#banner:after {
+		background: #edb842;
+	}
+
+	#header {
+		background: #edb842;
+		color: #343940;
+	}
+
+		#header h1 a,
+		#header nav > ul > li > a {
+			color: #343940;
+		}
+
+		#header nav > ul > li > a.menuToggle:after {
+			background-image: url("images/bars-dark.svg");
+		}
+
+	/* At the top of the page the header sits on the photo: keep it white there */
+	#header.alt {
+		background: transparent;
+	}
+
+		#header.alt nav > ul > li > a {
+			color: #fff;
+		}
+
+		#header.alt nav > ul > li > a.menuToggle:after {
+			background-image: url("images/bars.svg");
+		}
+
+	#menu {
+		background: #edb842;
+		color: #343940;
+	}
+
+		#menu ul > li {
+			border-top-color: rgba(52, 57, 64, 0.2);
+		}
+
+		#menu .close {
+			background-image: url("images/close-dark.svg");
+		}
+
+	/* Dim the page toward ink (not yellow) while the menu is open */
+	body.is-menu-visible {
+		background: #343940;
+	}
+
+/* Project images: breathing room above, below and at the sides */
+	#two .spotlight .image {
+		padding: 2.5em;
+	}
+
+		#two .spotlight .image img {
+			border-radius: 6px;
+		}
+
+	@media screen and (max-width: 980px) {
+		#two .spotlight .image {
+			padding: 2em 2em 0 2em;
+		}
+	}
