@@ -4168,7 +4168,7 @@ input, select, textarea {
 			width: 7.38em;
 			height: 9em;
 			margin-left: -3.69em;
-			background: url("../../images/avatar-girl.webp") 0 0 / 3600% 100% no-repeat;
+			background: url("../../images/avatar-girl.webp?v=2") 0 0 / 3600% 100% no-repeat;
 			opacity: 0;
 			-moz-transition: opacity 0.6s ease;
 			-webkit-transition: opacity 0.6s ease;
@@ -5038,4 +5038,42 @@ input, select, textarea {
 /* the theme clips buttons; let her swing and mirror outside her button box */
 	.contact-buddy .buddy-toggle {
 		overflow: visible;
+	}
+
+/* Phones: taller banner with the name and tagline in the lower part, clear of the face */
+	@media screen and (max-width: 736px) {
+		#banner {
+			padding: 21em 2em 2.5em 2em;
+			-moz-justify-content: flex-end;
+			-webkit-justify-content: flex-end;
+			-ms-justify-content: flex-end;
+			justify-content: flex-end;
+		}
+	}
+
+	@media screen and (max-width: 736px) {
+		#banner .inner p br {
+			display: inline;
+		}
+	}
+
+/* Sitting buddy: more room from the right edge; close button sits further out */
+	.contact-buddy {
+		right: 2em;
+	}
+
+	@media screen and (max-width: 736px) {
+		.contact-buddy {
+			right: 1.25em;
+		}
+	}
+
+	.contact-buddy .buddy-close {
+		top: -18px;
+		right: -18px;
+	}
+
+/* Touch screens can carry her too: the page does not scroll when the drag starts on her */
+	.contact-buddy .buddy-toggle {
+		touch-action: none;
 	}

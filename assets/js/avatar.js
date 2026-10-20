@@ -5,7 +5,7 @@
 	Contact buddy (laptop girl): shows at the right edge whenever the banner is out of view,
 	fades out when you scroll back up to it. Hover/tap opens a "Let's connect" bubble.
 	- Mouse: drag her anywhere (she hangs from the cursor and swings with inertia); a small x hides her.
-	- Touch: swipe her to the right to dismiss.
+	- Touch: carry her the same way; a quick flick to the right dismisses her.
 	Hidden or dismissed, she stays away until the page is reloaded.
 */
 (function() {
@@ -209,7 +209,7 @@
 		if (event.pointerType !== 'touch')
 			event.preventDefault();
 
-		pointer = { id: event.pointerId, type: event.pointerType, x: event.clientX, y: event.clientY, lastX: event.clientX, lastY: event.clientY, dragging: false, swiping: false, dx: 0 };
+		pointer = { id: event.pointerId, type: event.pointerType, x: event.clientX, y: event.clientY, lastX: event.clientX, lastY: event.clientY, dragging: false };
 		toggle.setPointerCapture(event.pointerId);
 	});
 
@@ -223,28 +223,18 @@
 			return;
 
 		var dx = event.clientX - pointer.x,
-			dy = event.clientY - pointer.y;
+			dy = event.clientY - pointer.y,
+			now = performance.now();
 
+		// horizontal speed (px/ms), smoothed, for the flick-right-to-dismiss gesture
+		if (pointer.t)
+			pointer.vx = 0.7 * (pointer.vx || 0) + 0.3 * (event.clientX - pointer.lastX) / Math.max(1, now - pointer.t);
+
+		pointer.t = now;
 		pointer.lastX = event.clientX;
 		pointer.lastY = event.clientY;
 
-		if (pointer.type === 'touch') {
-			if (!pointer.swiping && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
-				pointer.swiping = true;
-				buddy.classList.add('is-swiping');
-				setOpen(false);
-			}
-
-			if (pointer.swiping) {
-				pointer.dx = Math.max(0, dx);
-				buddy.style.transform = 'translate(' + pointer.dx + 'px, -50%)';
-				buddy.style.opacity = String(Math.max(0, 1 - pointer.dx / 160));
-			}
-
-			return;
-		}
-
-		if (!pointer.dragging && Math.sqrt(dx * dx + dy * dy) > 5) {
+		if (!pointer.dragging && Math.sqrt(dx * dx + dy * dy) > (pointer.type === 'touch' ? 8 : 5)) {
 			pointer.dragging = true;
 			setOpen(false);
 			buddy.classList.add('is-dragging', 'is-placed');
@@ -266,26 +256,22 @@
 		if (pointer.dragging) {
 			stopSwing();
 			buddy.classList.remove('is-dragging');
-			// Sit down roughly where she was dropped (a cancelled pointer reports 0,0: use the last move).
+
 			var x = event.type === 'pointercancel' ? pointer.lastX : event.clientX,
-				y = event.type === 'pointercancel' ? pointer.lastY : event.clientY;
+				y = event.type === 'pointercancel' ? pointer.lastY : event.clientY,
+				dx = x - pointer.x,
+				dy = y - pointer.y;
 
-			placeSitting(x - SIT_W / 2, y - 20);
-			suppressClick = true;
-		}
-		else if (pointer.swiping) {
-			buddy.classList.remove('is-swiping');
-
-			if (event.type !== 'pointercancel' && pointer.dx > 70) {
+			// Touch: a quick flick to the right sends her away.
+			if (pointer.type === 'touch' && event.type !== 'pointercancel' && dx > 60 && Math.abs(dx) > Math.abs(dy) * 1.5 && (pointer.vx || 0) > 0.5) {
 				buddy.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
-				buddy.style.transform = 'translate(140%, -50%)';
+				buddy.style.transform = 'translateX(120vw)';
 				buddy.style.opacity = '0';
 				dismiss();
 			}
-			else {
-				buddy.style.transform = '';
-				buddy.style.opacity = '';
-			}
+			else
+				// Sit down roughly where she was dropped.
+				placeSitting(x - SIT_W / 2, y - 20);
 
 			suppressClick = true;
 		}
