@@ -4169,6 +4169,16 @@ input, select, textarea {
 			height: 9em;
 			margin-left: -3.69em;
 			background: url("../../images/avatar-girl.webp") 0 0 / 3600% 100% no-repeat;
+			opacity: 0;
+			-moz-transition: opacity 0.6s ease;
+			-webkit-transition: opacity 0.6s ease;
+			-ms-transition: opacity 0.6s ease;
+			transition: opacity 0.6s ease;
+		}
+
+		/* shown 2s after load (avatar.js adds .is-ready); the loop starts from the first frame then */
+		#banner .more.is-ready .avatar {
+			opacity: 1;
 			-moz-animation: avatar-loop 6.3s step-end infinite;
 			-webkit-animation: avatar-loop 6.3s step-end infinite;
 			animation: avatar-loop 6.3s step-end infinite;

@@ -1,51 +1,91 @@
 /*
-	Banner avatar: loops idle -> confused -> trying to lift while the page is at the top.
-	On the first scroll she is happy, then leaves (until the page is reloaded),
-	and a small contact buddy appears in the bottom-right corner.
+	Banner avatar: appears 2s after load and loops idle -> confused -> trying to lift.
+	On the first scroll she is happy, then leaves (until the page is reloaded).
+	After that, the laptop "contact buddy" shows at the right edge whenever the
+	banner is out of view, and fades out again when you scroll back up to it.
 */
 (function() {
 
-	var avatarLink = document.querySelector('#banner .more'),
+	var banner = document.getElementById('banner'),
+		avatarLink = document.querySelector('#banner .more'),
 		buddy = document.getElementById('contact-buddy');
 
-	if (!avatarLink || !buddy)
+	if (!banner || !avatarLink || !buddy)
 		return;
 
 	var toggle = buddy.querySelector('.buddy-toggle'),
 		reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
 		threshold = 40,
-		started = false;
+		ready = false,
+		started = false,
+		handedOff = false;
 
-	function showBuddy() {
-		avatarLink.classList.add('is-gone');
-		buddy.classList.add('is-visible');
-		buddy.removeAttribute('aria-hidden');
-	}
-
-	function onScroll() {
-		if (started || window.pageYOffset < threshold)
-			return;
-
-		started = true;
-		window.removeEventListener('scroll', onScroll);
-		avatarLink.classList.add('is-happy');
-		window.setTimeout(showBuddy, reduceMotion ? 0 : 2100);
-	}
-
-	// Reloaded somewhere down the page: skip straight to the buddy.
-	if (window.pageYOffset >= threshold) {
-		started = true;
-		showBuddy();
-	}
-	else
-		window.addEventListener('scroll', onScroll, { passive: true });
-
-	// Touch screens have no hover: tap the buddy to open or close the bubble.
 	function setOpen(open) {
 		buddy.classList.toggle('is-open', open);
 		toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 	}
 
+	// "In the first section" = the banner still covers more than the top third of the screen.
+	function inBanner() {
+		return banner.getBoundingClientRect().bottom > window.innerHeight * 0.35;
+	}
+
+	function updateBuddy() {
+		if (!handedOff)
+			return;
+
+		var show = !inBanner();
+
+		buddy.classList.toggle('is-visible', show);
+
+		if (show)
+			buddy.removeAttribute('aria-hidden');
+		else {
+			buddy.setAttribute('aria-hidden', 'true');
+			setOpen(false);
+		}
+	}
+
+	function handOff() {
+		avatarLink.classList.add('is-gone');
+		handedOff = true;
+		updateBuddy();
+	}
+
+	function onScroll() {
+		if (!started && window.pageYOffset >= threshold) {
+			started = true;
+
+			// She only celebrates if she was already on screen.
+			if (ready && !reduceMotion) {
+				avatarLink.classList.add('is-happy');
+				window.setTimeout(handOff, 2100);
+			}
+			else
+				handOff();
+		}
+
+		updateBuddy();
+	}
+
+	window.setTimeout(function() {
+		if (started)
+			return;
+
+		ready = true;
+		avatarLink.classList.add('is-ready');
+	}, 2000);
+
+	// Reloaded somewhere down the page: skip straight to the buddy.
+	if (window.pageYOffset >= threshold) {
+		started = true;
+		handOff();
+	}
+
+	window.addEventListener('scroll', onScroll, { passive: true });
+	window.addEventListener('resize', updateBuddy);
+
+	// Touch screens have no hover: tap the buddy to open or close the bubble.
 	toggle.addEventListener('click', function() {
 		setOpen(!buddy.classList.contains('is-open'));
 	});
