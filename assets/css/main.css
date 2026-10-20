@@ -4334,3 +4334,51 @@ input, select, textarea {
 			padding: 2em 2em 0 2em;
 		}
 	}
+
+/* Projects: white background, text left / image right, black-and-white images that color on hover */
+	#two.wrapper.style5 {
+		background-color: #ffffff;
+	}
+
+	#two .spotlight,
+	#two .spotlight:nth-child(2n) {
+		-moz-flex-direction: row-reverse;
+		-webkit-flex-direction: row-reverse;
+		-ms-flex-direction: row-reverse;
+		flex-direction: row-reverse;
+		background-color: transparent;
+		border-top: solid 1px rgba(52, 57, 64, 0.12);
+	}
+
+		#two .spotlight:first-child {
+			border-top: 0;
+		}
+
+		#two .spotlight .icon {
+			border-bottom: 0;
+		}
+
+		#two .spotlight .image img {
+			-moz-filter: grayscale(1);
+			-webkit-filter: grayscale(1);
+			filter: grayscale(1);
+			-moz-transition: -moz-filter 0.4s ease;
+			-webkit-transition: -webkit-filter 0.4s ease;
+			transition: filter 0.4s ease;
+		}
+
+			#two .spotlight .image a:hover img,
+			#two .spotlight .image a:focus img {
+				-moz-filter: none;
+				-webkit-filter: none;
+				filter: none;
+			}
+
+	/* Touch screens have no hover: show color */
+	@media (hover: none) {
+		#two .spotlight .image img {
+			-moz-filter: none;
+			-webkit-filter: none;
+			filter: none;
+		}
+	}
