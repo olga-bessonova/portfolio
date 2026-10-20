@@ -5367,3 +5367,10 @@ input, select, textarea {
 			padding-top: calc(21em + env(safe-area-inset-top, 0px));
 		}
 	}
+
+/* Desktop Safari paints the scrollbar track with the root background; keep it neutral
+   (the body keeps its mustard for the load screen) */
+	html {
+		background: #ffffff;
+		scrollbar-color: rgba(52, 57, 64, 0.45) #ffffff;
+	}
