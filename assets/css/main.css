@@ -5296,3 +5296,31 @@ input, select, textarea {
 			padding-top: 1.1em;
 		}
 	}
+
+/* Phones: two centred rows (email, then icons + resume) without relying on flex gap */
+	@media screen and (max-width: 736px) {
+		#footer .footer-links {
+			display: block;
+			gap: 0;
+			padding: 0 1em;
+			text-align: center;
+		}
+
+			#footer .footer-links li {
+				display: inline-block;
+				margin: 0 0.8em;
+				vertical-align: middle;
+			}
+
+			#footer .footer-links li:first-child {
+				display: block;
+				width: 100%;
+				margin: 0 0 1.1em 0;
+				text-align: center;
+			}
+
+			#footer .footer-links .footer-leetcode img {
+				display: inline-block;
+				vertical-align: middle;
+			}
+	}
