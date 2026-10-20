@@ -29,7 +29,7 @@
 		started = true;
 		window.removeEventListener('scroll', onScroll);
 		avatarLink.classList.add('is-happy');
-		window.setTimeout(showBuddy, reduceMotion ? 0 : 1300);
+		window.setTimeout(showBuddy, reduceMotion ? 0 : 2100);
 	}
 
 	// Reloaded somewhere down the page: skip straight to the buddy.
