@@ -5212,3 +5212,80 @@ input, select, textarea {
 				flex-basis: 100%;
 			}
 	}
+
+/* Cloud v2: outlined cartoon cloud image, kept at its own proportions; text centred inside */
+	.contact-buddy .buddy-bubble,
+	.contact-buddy.bubble-right .buddy-bubble {
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+		-moz-flex-direction: column;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-moz-justify-content: center;
+		-webkit-justify-content: center;
+		-ms-justify-content: center;
+		justify-content: center;
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		width: 18.5em;
+		aspect-ratio: 491 / 289;
+		padding: 0.6em 1.6em 0 1.6em;
+		background: url("../../images/cloud.webp") center / 100% 100% no-repeat;
+		-moz-filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+		-webkit-filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+	}
+
+	@media screen and (max-width: 736px) {
+		.contact-buddy .buddy-bubble,
+		.contact-buddy.bubble-right .buddy-bubble {
+			width: 18.5em;
+			padding: 0.6em 1.6em 0 1.6em;
+		}
+	}
+
+		/* outlined thought-puffs leading to her */
+		.contact-buddy .buddy-bubble:after {
+			right: -18px;
+			top: 60%;
+			width: 15px;
+			height: 15px;
+			border: solid 2px #343940;
+			background: #ffffff;
+			box-shadow: 14px 11px 0 -4px #ffffff, 14px 11px 0 -2px #343940;
+		}
+
+		.contact-buddy.bubble-right .buddy-bubble:after {
+			right: auto;
+			left: -18px;
+			box-shadow: -14px 11px 0 -4px #ffffff, -14px 11px 0 -2px #343940;
+		}
+
+/* Close button further out; mirrored to her left when she sits on the left half */
+	.contact-buddy .buddy-close {
+		top: -30px;
+		right: -30px;
+		left: auto;
+	}
+
+	.contact-buddy.is-flipped .buddy-close {
+		right: auto;
+		left: -30px;
+	}
+
+/* Touch carry: she hangs below the fingertip on a short rope so the finger doesn't hide her */
+	.contact-buddy.is-touch-carry .buddy-toggle:before {
+		content: '';
+		position: absolute;
+		left: 23px;
+		top: -49px;
+		width: 2px;
+		height: 52px;
+		border-radius: 1px;
+		background: #343940;
+	}

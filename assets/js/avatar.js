@@ -29,7 +29,8 @@
 
 	// Hanging sprite: where her raised hand is inside the 95x112 frame (see main.css).
 	var HAND_X = 24, HAND_Y = 3,
-		SIT_W = 57, SIT_H = 88;
+		SIT_W = 57, SIT_H = 88,
+		TOUCH_DROP = 52;   // on touch she hangs this far below the fingertip (on a rope) so the finger doesn't hide her
 
 	// --- Swing while carried: her body is a weight on a rod hanging from the cursor ---
 	var sprite = buddy.querySelector('.buddy-sprite'),
@@ -235,18 +236,21 @@
 		pointer.lastX = event.clientX;
 		pointer.lastY = event.clientY;
 
+		var drop = pointer.type === 'touch' ? TOUCH_DROP : 0;
+
 		if (!pointer.dragging && Math.sqrt(dx * dx + dy * dy) > (pointer.type === 'touch' ? 8 : 5)) {
 			pointer.dragging = true;
 			setOpen(false);
 			buddy.classList.add('is-dragging', 'is-placed');
-			startSwing(event.clientX, event.clientY);
+			buddy.classList.toggle('is-touch-carry', pointer.type === 'touch');
+			startSwing(event.clientX, event.clientY + drop);
 		}
 
 		if (pointer.dragging) {
 			buddy.style.left = (event.clientX - HAND_X) + 'px';
-			buddy.style.top = (event.clientY - HAND_Y) + 'px';
+			buddy.style.top = (event.clientY + drop - HAND_Y) + 'px';
 			updateSide(event.clientX);
-			moveSwing(event.clientX, event.clientY);
+			moveSwing(event.clientX, event.clientY + drop);
 		}
 	});
 
@@ -285,10 +289,12 @@
 				dismiss();
 			}
 			else {
-				// Sit down roughly where she was dropped.
+				// Sit down roughly where she was hanging.
 				buddy.classList.remove('is-dragging');
-				placeSitting(x - SIT_W / 2, y - 20);
+				placeSitting(x - SIT_W / 2, y + (pointer.type === 'touch' ? TOUCH_DROP : 0) - 20);
 			}
+
+			buddy.classList.remove('is-touch-carry');
 
 			suppressClick = true;
 		}
