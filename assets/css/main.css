@@ -5382,3 +5382,87 @@ input, select, textarea {
 	body.is-menu-visible {
 		background: #343940;
 	}
+
+/* Phones: longer, bolder menu icon */
+	@media screen and (max-width: 736px) {
+		#header nav > ul > li > a.menuToggle:after {
+			width: 26px;
+			background-image: url("images/bars-bold-dark.svg");
+			background-size: 26px 19px;
+		}
+
+		#header.alt nav > ul > li > a.menuToggle:after {
+			background-image: url("images/bars-bold.svg");
+		}
+	}
+
+/* Phones: the close button shows while the cloud is open */
+	@media (hover: none) {
+		.contact-buddy.is-open .buddy-close {
+			display: block;
+			opacity: 1;
+		}
+	}
+
+/* Right after she is carried and dropped, hovering her doesn't reopen the cloud until the pointer leaves */
+	.contact-buddy.no-hover:hover .buddy-bubble,
+	.contact-buddy.no-hover:focus-within .buddy-bubble {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+		.contact-buddy.no-hover.is-open .buddy-bubble {
+			opacity: 1;
+			visibility: visible;
+		}
+
+/* Skills: technology logos */
+	#three .features li.skill {
+		padding: 1.2em 1em 1.2em 1em;
+	}
+
+		#three .features li.skill:before {
+			display: none;
+		}
+
+		#three .features li.skill .skill-logo {
+			-moz-flex-shrink: 0;
+			-webkit-flex-shrink: 0;
+			-ms-flex-shrink: 0;
+			flex-shrink: 0;
+			width: 26px;
+			height: 26px;
+			margin-right: 0.85em;
+			object-fit: contain;
+		}
+
+	@media screen and (max-width: 736px) {
+		#three .features li.skill {
+			padding: 1em 0.6em;
+		}
+
+			#three .features li.skill .skill-logo {
+				width: 22px;
+				height: 22px;
+				margin-right: 0.6em;
+			}
+	}
+
+	/* Phones: keep the close button on screen (she sits 20px from the edge) */
+	@media screen and (max-width: 736px) {
+		.contact-buddy .buddy-close {
+			top: -28px;
+			right: -10px;
+		}
+
+		.contact-buddy.is-flipped .buddy-close {
+			right: auto;
+			left: -10px;
+		}
+
+		/* skill names fit their half-width tiles */
+		#three .features li.skill h3 {
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+		}
+	}

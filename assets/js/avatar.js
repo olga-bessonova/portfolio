@@ -260,6 +260,11 @@
 
 		if (pointer.dragging) {
 			stopSwing();
+			setOpen(false);
+
+			// the pointer is still over her after a drop: don't let hover reopen the cloud until it leaves
+			if (pointer.type === 'mouse')
+				buddy.classList.add('no-hover');
 
 			var x = event.type === 'pointercancel' ? pointer.lastX : event.clientX,
 				y = event.type === 'pointercancel' ? pointer.lastY : event.clientY,
@@ -301,6 +306,10 @@
 
 		pointer = null;
 	}
+
+	buddy.addEventListener('pointerleave', function() {
+		buddy.classList.remove('no-hover');
+	});
 
 	toggle.addEventListener('pointerup', endPointer);
 	toggle.addEventListener('pointercancel', endPointer);
