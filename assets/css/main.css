@@ -5576,3 +5576,41 @@ input, select, textarea {
 			transform: none;
 		}
 	}
+
+/* Skills: rounded tiles with a small gap between them */
+	#three .features {
+		margin: 0 -5px;
+		width: calc(100% + 10px);
+	}
+
+		#three.wrapper.style5 .features li.skill,
+		#three.wrapper.style5 .features li.skill:nth-child(odd),
+		#three.wrapper.style5 .features li.skill:nth-child(even) {
+			width: calc(25% - 10px);
+			margin: 5px;
+			border: 0 !important;
+			border-radius: 14px !important;
+		}
+
+	@media screen and (max-width: 980px) {
+		#three.wrapper.style5 .features li.skill,
+		#three.wrapper.style5 .features li.skill:nth-child(odd),
+		#three.wrapper.style5 .features li.skill:nth-child(even) {
+			width: calc(33.333% - 10px);
+		}
+	}
+
+	@media screen and (max-width: 736px) {
+		#three .features {
+			margin: 0 -4px;
+			width: calc(100% + 8px);
+		}
+
+			#three.wrapper.style5 .features li.skill,
+			#three.wrapper.style5 .features li.skill:nth-child(odd),
+			#three.wrapper.style5 .features li.skill:nth-child(even) {
+				width: calc(50% - 8px);
+				margin: 4px;
+				border-radius: 12px !important;
+			}
+	}
