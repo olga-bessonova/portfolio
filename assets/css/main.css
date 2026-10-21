@@ -5730,3 +5730,60 @@ input, select, textarea {
 	#three .features li.skill * {
 		cursor: default;
 	}
+
+/* Project titles link to the live sites: rose on hover, colour only (no size change) */
+	#two .spotlight h2 a.project-title {
+		border-bottom: 0;
+		color: inherit;
+		text-decoration: none;
+		-moz-transition: color 0.2s ease;
+		-webkit-transition: color 0.2s ease;
+		-ms-transition: color 0.2s ease;
+		transition: color 0.2s ease;
+	}
+
+		#two .spotlight h2 a.project-title:hover,
+		#two .spotlight h2 a.project-title:focus-visible {
+			color: #d4577a;
+		}
+
+/* Contact buddy: the cloud and the close button show and hide together.
+   Desktop: hover shows them (with a short grace on leave); a click toggles them. Touch: tap toggles. */
+	.contact-buddy:not(.is-open):not(.is-hover) .buddy-bubble,
+	.contact-buddy.no-hover:not(.is-open) .buddy-bubble {
+		opacity: 0 !important;
+		visibility: hidden !important;
+	}
+
+	.contact-buddy:not(.is-open):not(.is-hover) .buddy-close,
+	.contact-buddy.no-hover:not(.is-open) .buddy-close {
+		opacity: 0 !important;
+		pointer-events: none;
+		-moz-transition-delay: 0s !important;
+		-webkit-transition-delay: 0s !important;
+		-ms-transition-delay: 0s !important;
+		transition-delay: 0s !important;
+	}
+
+	.contact-buddy.is-open .buddy-close,
+	.contact-buddy.is-hover:not(.no-hover) .buddy-close {
+		display: block;
+		opacity: 1 !important;
+		pointer-events: auto;
+		-moz-transition-delay: 0s !important;
+		-webkit-transition-delay: 0s !important;
+		-ms-transition-delay: 0s !important;
+		transition-delay: 0s !important;
+	}
+
+	.contact-buddy.is-open .buddy-bubble,
+	.contact-buddy.is-hover:not(.no-hover) .buddy-bubble {
+		-moz-transition-delay: 0s !important;
+		-webkit-transition-delay: 0s !important;
+		-ms-transition-delay: 0s !important;
+		transition-delay: 0s !important;
+	}
+
+	.contact-buddy .buddy-toggle {
+		cursor: pointer;
+	}

@@ -345,7 +345,7 @@
 		hoverTimer = window.setTimeout(function() {
 			buddy.classList.remove('is-hover');
 			buddy.classList.remove('no-hover');
-		}, 900);
+		}, 500);
 	});
 
 	toggle.addEventListener('pointerup', endPointer);
@@ -382,7 +382,18 @@
 			return;
 		}
 
-		setOpen(!buddy.classList.contains('is-open'));
+		// Visible right now (pinned open, or shown by hover)? Then a click hides both, even while hovering.
+		var shown = buddy.classList.contains('is-open') ||
+			(buddy.classList.contains('is-hover') && !buddy.classList.contains('no-hover'));
+
+		if (shown) {
+			setOpen(false);
+			buddy.classList.add('no-hover');
+		}
+		else {
+			buddy.classList.remove('no-hover');
+			setOpen(true);
+		}
 	});
 
 	closeButton.addEventListener('click', function(event) {
