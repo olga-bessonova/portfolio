@@ -263,8 +263,10 @@
 			setOpen(false);
 
 			// the pointer is still over her after a drop: don't let hover reopen the cloud until it leaves
-			if (pointer.type === 'mouse')
+			if (pointer.type === 'mouse') {
 				buddy.classList.add('no-hover');
+				buddy.classList.remove('is-hover');
+			}
 
 			var x = event.type === 'pointercancel' ? pointer.lastX : event.clientX,
 				y = event.type === 'pointercancel' ? pointer.lastY : event.clientY,
@@ -307,8 +309,27 @@
 		pointer = null;
 	}
 
-	buddy.addEventListener('pointerleave', function() {
-		buddy.classList.remove('no-hover');
+	// Mouse hover with a grace period: the cloud and the x stay open for a moment after the pointer
+	// leaves her, so moving onto the x or the cloud buttons never makes them flicker away.
+	var hoverTimer = 0;
+
+	buddy.addEventListener('pointerenter', function(event) {
+		if (event.pointerType !== 'mouse')
+			return;
+
+		window.clearTimeout(hoverTimer);
+		buddy.classList.add('is-hover');
+	});
+
+	buddy.addEventListener('pointerleave', function(event) {
+		if (event.pointerType !== 'mouse')
+			return;
+
+		window.clearTimeout(hoverTimer);
+		hoverTimer = window.setTimeout(function() {
+			buddy.classList.remove('is-hover');
+			buddy.classList.remove('no-hover');
+		}, 900);
 	});
 
 	toggle.addEventListener('pointerup', endPointer);
