@@ -5614,3 +5614,55 @@ input, select, textarea {
 				border-radius: 12px !important;
 			}
 	}
+
+/* Skills: mute / unmute button next to the heading */
+	#three header.major {
+		position: relative;
+	}
+
+	#three .sound-toggle {
+		display: inline-block;
+		vertical-align: top;
+		width: 2.2em;
+		height: 2.2em;
+		min-width: 0;
+		margin: 0.15em 0 0 0.6em;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: transparent;
+		box-shadow: none;
+		color: rgba(52, 57, 64, 0.55);
+		font-size: 0.85em;
+		line-height: 2.2em;
+		letter-spacing: 0;
+		text-align: center;
+		cursor: pointer;
+		-moz-transition: color 0.2s ease, background-color 0.2s ease;
+		-webkit-transition: color 0.2s ease, background-color 0.2s ease;
+		-ms-transition: color 0.2s ease, background-color 0.2s ease;
+		transition: color 0.2s ease, background-color 0.2s ease;
+	}
+
+		#three .sound-toggle:hover {
+			background: #f2d3c7;
+			color: #343940;
+			box-shadow: none;
+		}
+
+		#three .sound-toggle:focus-visible {
+			outline: solid 2px #edb842;
+			outline-offset: 2px;
+		}
+
+	/* the button floats beside the heading so "SKILLS" stays centred */
+	#three header.major h2 {
+		position: relative;
+	}
+
+		#three header.major h2 .sound-toggle {
+			position: absolute;
+			left: 100%;
+			top: 0;
+			margin: 0 0 0 0.7em;
+		}

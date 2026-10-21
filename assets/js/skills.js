@@ -1,6 +1,6 @@
 /*
-	Skills tiles: a watery bubble sound and a little pop when you hover (or tap) each tile,
-	or when the contact buddy is dropped onto one.
+	Skills tiles: a very soft note and a little pop when you hover (or tap) each tile,
+	or when the contact buddy is dropped onto one. A button next to the heading mutes it.
 	Synthesised with the Web Audio API, so there are no sound files to load. Browsers only allow
 	sound after the visitor has interacted with the page (a click, tap or key press), so the bubbles
 	start after the first click anywhere.
@@ -30,61 +30,63 @@
 		window.addEventListener(type, unlock, { passive: true });
 	});
 
-	// one watery bubble: two quick rising chirps (the bubble forming, then popping) plus a soft click
-	var noise = null;
+	// one very soft droplet: a short, quiet sine with a slight upward glide, through a low-pass filter.
+	// Each tile gets its own note from a pentatonic scale, so moving across them sounds gentle.
+	var NOTES = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5],
+		muted = false;
 
-	function chirp(at, from, to, length, volume) {
-		var osc = ctx.createOscillator(),
-			gain = ctx.createGain();
-
-		osc.type = 'sine';
-		osc.frequency.setValueAtTime(from, at);
-		osc.frequency.exponentialRampToValueAtTime(to, at + length * 0.8);
-
-		gain.gain.setValueAtTime(0.0001, at);
-		gain.gain.exponentialRampToValueAtTime(volume, at + 0.006);
-		gain.gain.exponentialRampToValueAtTime(0.0001, at + length);
-
-		osc.connect(gain);
-		gain.connect(ctx.destination);
-		osc.start(at);
-		osc.stop(at + length + 0.02);
-	}
-
-	function click(at) {
-		if (!noise) {
-			noise = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.03), ctx.sampleRate);
-			var data = noise.getChannelData(0);
-			for (var i = 0; i < data.length; i++)
-				data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
-		}
-
-		var src = ctx.createBufferSource(),
-			filter = ctx.createBiquadFilter(),
-			gain = ctx.createGain();
-
-		src.buffer = noise;
-		filter.type = 'bandpass';
-		filter.frequency.value = 2600;
-		filter.Q.value = 1.2;
-		gain.gain.value = 0.05;
-
-		src.connect(filter);
-		filter.connect(gain);
-		gain.connect(ctx.destination);
-		src.start(at);
-	}
+	try { muted = window.localStorage.getItem('skillSoundMuted') === '1'; } catch (e) {}
 
 	function bubble(index) {
-		if (!ctx || ctx.state !== 'running')
+		if (muted || !ctx || ctx.state !== 'running')
 			return;
 
 		var now = ctx.currentTime,
-			pitch = 1 + (index % 6) * 0.08 + Math.random() * 0.05;
+			note = NOTES[index % NOTES.length],
+			osc = ctx.createOscillator(),
+			filter = ctx.createBiquadFilter(),
+			gain = ctx.createGain();
 
-		chirp(now, 260 * pitch, 720 * pitch, 0.07, 0.10);
-		chirp(now + 0.055, 520 * pitch, 1500 * pitch, 0.05, 0.08);
-		click(now + 0.055);
+		osc.type = 'sine';
+		osc.frequency.setValueAtTime(note * 0.94, now);
+		osc.frequency.exponentialRampToValueAtTime(note, now + 0.03);
+
+		filter.type = 'lowpass';
+		filter.frequency.value = 1800;
+
+		gain.gain.setValueAtTime(0.0001, now);
+		gain.gain.exponentialRampToValueAtTime(0.035, now + 0.008);
+		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+
+		osc.connect(filter);
+		filter.connect(gain);
+		gain.connect(ctx.destination);
+		osc.start(now);
+		osc.stop(now + 0.14);
+	}
+
+	// mute / unmute button next to the Skills heading (remembered in this browser)
+	var toggle = document.querySelector('#three .sound-toggle');
+
+	function showMuted() {
+		if (!toggle)
+			return;
+
+		var icon = toggle.querySelector('i');
+		icon.className = 'fas ' + (muted ? 'fa-volume-mute' : 'fa-volume-up');
+		toggle.setAttribute('aria-pressed', muted ? 'true' : 'false');
+		toggle.setAttribute('aria-label', muted ? 'Unmute skill sounds' : 'Mute skill sounds');
+		toggle.title = muted ? 'Sound off' : 'Sound on';
+	}
+
+	if (toggle) {
+		showMuted();
+		toggle.addEventListener('click', function() {
+			muted = !muted;
+			try { window.localStorage.setItem('skillSoundMuted', muted ? '1' : '0'); } catch (e) {}
+			showMuted();
+			toggle.blur();
+		});
 	}
 
 	// pop a tile (visual) and play its bubble
