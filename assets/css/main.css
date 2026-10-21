@@ -5477,3 +5477,39 @@ input, select, textarea {
 			padding: 1.4em 0 1.2em 0;
 		}
 	}
+
+/* Close button: invisible bridge back to her, and a short grace period before it fades */
+	.contact-buddy .buddy-close {
+		-moz-transition: opacity 0.2s ease 0.6s;
+		-webkit-transition: opacity 0.2s ease 0.6s;
+		-ms-transition: opacity 0.2s ease 0.6s;
+		transition: opacity 0.2s ease 0.6s;
+	}
+
+		.contact-buddy:hover .buddy-close,
+		.contact-buddy .buddy-close:focus-visible {
+			-moz-transition-delay: 0s;
+			-webkit-transition-delay: 0s;
+			-ms-transition-delay: 0s;
+			transition-delay: 0s;
+		}
+
+		.contact-buddy .buddy-close:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 52px;
+			height: 52px;
+		}
+
+		.contact-buddy:not(.is-flipped) .buddy-close:after {
+			right: auto;
+			left: -30px;
+			top: 0;
+		}
+
+		.contact-buddy.is-flipped .buddy-close:after {
+			left: auto;
+			right: -30px;
+		}
