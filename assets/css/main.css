@@ -4151,7 +4151,7 @@ input, select, textarea {
 		margin-left: -7.5em;
 	}
 
-/* Banner avatar (images/avatar-girl.webp, 36 frames): idle head wobble (10) -> confused (10) -> trying to lift (15), looping;
+/* Banner avatar (images/avatar-standing.webp, 47 frames): idle (10) -> confused (10) -> trying to lift (24), looping;
    on the first scroll she is happy (10) and then leaves until reload. See assets/js/avatar.js */
 	#banner .more:after {
 		display: none;
@@ -4165,10 +4165,10 @@ input, select, textarea {
 			position: absolute;
 			left: 50%;
 			bottom: 0;
-			width: 7.38em;
-			height: 9em;
-			margin-left: -3.69em;
-			background: url("../../images/avatar-girl.webp?v=2") 0 0 / 3600% 100% no-repeat;
+			width: 5.84em;
+			height: 9.07em;
+			margin-left: -2.92em;
+			background: url("../../images/avatar-standing.webp") 0 0 / 4700% 100% no-repeat;
 			opacity: 0;
 			-moz-transition: opacity 0.6s ease;
 			-webkit-transition: opacity 0.6s ease;
@@ -4179,9 +4179,9 @@ input, select, textarea {
 		/* shown 2s after load (avatar.js adds .is-ready); the loop starts from the first frame then */
 		#banner .more.is-ready .avatar {
 			opacity: 1;
-			-moz-animation: avatar-loop 6.3s step-end infinite;
-			-webkit-animation: avatar-loop 6.3s step-end infinite;
-			animation: avatar-loop 6.3s step-end infinite;
+			-moz-animation: avatar-loop 7.92s step-end infinite;
+			-webkit-animation: avatar-loop 7.92s step-end infinite;
+			animation: avatar-loop 7.92s step-end infinite;
 		}
 
 		#banner .more.is-happy .avatar {
@@ -4202,108 +4202,128 @@ input, select, textarea {
 
 	@keyframes avatar-loop {
 		0.0% { background-position: 0.0% 0; }
-		2.8571% { background-position: 2.8571% 0; }
-		5.7143% { background-position: 5.7143% 0; }
-		8.5714% { background-position: 8.5714% 0; }
-		11.4286% { background-position: 11.4286% 0; }
-		14.2857% { background-position: 8.5714% 0; }
-		17.1429% { background-position: 5.7143% 0; }
-		20.0% { background-position: 2.8571% 0; }
-		22.8571% { background-position: 0.0% 0; }
-		25.7143% { background-position: 0.0% 0; }
-		28.5714% { background-position: 14.2857% 0; }
-		31.4286% { background-position: 17.1429% 0; }
-		34.2857% { background-position: 20.0% 0; }
-		37.1429% { background-position: 22.8571% 0; }
-		40.0% { background-position: 25.7143% 0; }
-		42.8571% { background-position: 28.5714% 0; }
-		45.7143% { background-position: 31.4286% 0; }
-		48.5714% { background-position: 31.4286% 0; }
-		51.4286% { background-position: 31.4286% 0; }
-		54.2857% { background-position: 31.4286% 0; }
-		57.1429% { background-position: 34.2857% 0; }
-		60.0% { background-position: 37.1429% 0; }
-		62.8571% { background-position: 40.0% 0; }
-		65.7143% { background-position: 42.8571% 0; }
-		68.5714% { background-position: 45.7143% 0; }
-		71.4286% { background-position: 48.5714% 0; }
-		74.2857% { background-position: 51.4286% 0; }
-		77.1429% { background-position: 54.2857% 0; }
-		80.0% { background-position: 57.1429% 0; }
-		82.8571% { background-position: 60.0% 0; }
-		85.7143% { background-position: 62.8571% 0; }
-		88.5714% { background-position: 65.7143% 0; }
-		91.4286% { background-position: 68.5714% 0; }
-		94.2857% { background-position: 65.7143% 0; }
-		97.1429% { background-position: 68.5714% 0; }
-		100% { background-position: 68.5714% 0; }
+		2.2727% { background-position: 2.1739% 0; }
+		4.5455% { background-position: 4.3478% 0; }
+		6.8182% { background-position: 6.5217% 0; }
+		9.0909% { background-position: 8.6957% 0; }
+		11.3636% { background-position: 10.8696% 0; }
+		13.6364% { background-position: 13.0435% 0; }
+		15.9091% { background-position: 15.2174% 0; }
+		18.1818% { background-position: 17.3913% 0; }
+		20.4545% { background-position: 0.0% 0; }
+		22.7273% { background-position: 19.5652% 0; }
+		25.0% { background-position: 19.5652% 0; }
+		27.2727% { background-position: 21.7391% 0; }
+		29.5455% { background-position: 23.913% 0; }
+		31.8182% { background-position: 21.7391% 0; }
+		34.0909% { background-position: 23.913% 0; }
+		36.3636% { background-position: 21.7391% 0; }
+		38.6364% { background-position: 23.913% 0; }
+		40.9091% { background-position: 23.913% 0; }
+		43.1818% { background-position: 23.913% 0; }
+		45.4545% { background-position: 26.087% 0; }
+		47.7273% { background-position: 28.2609% 0; }
+		50.0% { background-position: 30.4348% 0; }
+		52.2727% { background-position: 32.6087% 0; }
+		54.5455% { background-position: 34.7826% 0; }
+		56.8182% { background-position: 36.9565% 0; }
+		59.0909% { background-position: 39.1304% 0; }
+		61.3636% { background-position: 41.3043% 0; }
+		63.6364% { background-position: 43.4783% 0; }
+		65.9091% { background-position: 45.6522% 0; }
+		68.1818% { background-position: 47.8261% 0; }
+		70.4545% { background-position: 50.0% 0; }
+		72.7273% { background-position: 52.1739% 0; }
+		75.0% { background-position: 54.3478% 0; }
+		77.2727% { background-position: 56.5217% 0; }
+		79.5455% { background-position: 58.6957% 0; }
+		81.8182% { background-position: 60.8696% 0; }
+		84.0909% { background-position: 63.0435% 0; }
+		86.3636% { background-position: 65.2174% 0; }
+		88.6364% { background-position: 67.3913% 0; }
+		90.9091% { background-position: 69.5652% 0; }
+		93.1818% { background-position: 71.7391% 0; }
+		95.4545% { background-position: 73.913% 0; }
+		97.7273% { background-position: 76.087% 0; }
+		100% { background-position: 76.087% 0; }
 	}
 
 	@-webkit-keyframes avatar-loop {
 		0.0% { background-position: 0.0% 0; }
-		2.8571% { background-position: 2.8571% 0; }
-		5.7143% { background-position: 5.7143% 0; }
-		8.5714% { background-position: 8.5714% 0; }
-		11.4286% { background-position: 11.4286% 0; }
-		14.2857% { background-position: 8.5714% 0; }
-		17.1429% { background-position: 5.7143% 0; }
-		20.0% { background-position: 2.8571% 0; }
-		22.8571% { background-position: 0.0% 0; }
-		25.7143% { background-position: 0.0% 0; }
-		28.5714% { background-position: 14.2857% 0; }
-		31.4286% { background-position: 17.1429% 0; }
-		34.2857% { background-position: 20.0% 0; }
-		37.1429% { background-position: 22.8571% 0; }
-		40.0% { background-position: 25.7143% 0; }
-		42.8571% { background-position: 28.5714% 0; }
-		45.7143% { background-position: 31.4286% 0; }
-		48.5714% { background-position: 31.4286% 0; }
-		51.4286% { background-position: 31.4286% 0; }
-		54.2857% { background-position: 31.4286% 0; }
-		57.1429% { background-position: 34.2857% 0; }
-		60.0% { background-position: 37.1429% 0; }
-		62.8571% { background-position: 40.0% 0; }
-		65.7143% { background-position: 42.8571% 0; }
-		68.5714% { background-position: 45.7143% 0; }
-		71.4286% { background-position: 48.5714% 0; }
-		74.2857% { background-position: 51.4286% 0; }
-		77.1429% { background-position: 54.2857% 0; }
-		80.0% { background-position: 57.1429% 0; }
-		82.8571% { background-position: 60.0% 0; }
-		85.7143% { background-position: 62.8571% 0; }
-		88.5714% { background-position: 65.7143% 0; }
-		91.4286% { background-position: 68.5714% 0; }
-		94.2857% { background-position: 65.7143% 0; }
-		97.1429% { background-position: 68.5714% 0; }
-		100% { background-position: 68.5714% 0; }
+		2.2727% { background-position: 2.1739% 0; }
+		4.5455% { background-position: 4.3478% 0; }
+		6.8182% { background-position: 6.5217% 0; }
+		9.0909% { background-position: 8.6957% 0; }
+		11.3636% { background-position: 10.8696% 0; }
+		13.6364% { background-position: 13.0435% 0; }
+		15.9091% { background-position: 15.2174% 0; }
+		18.1818% { background-position: 17.3913% 0; }
+		20.4545% { background-position: 0.0% 0; }
+		22.7273% { background-position: 19.5652% 0; }
+		25.0% { background-position: 19.5652% 0; }
+		27.2727% { background-position: 21.7391% 0; }
+		29.5455% { background-position: 23.913% 0; }
+		31.8182% { background-position: 21.7391% 0; }
+		34.0909% { background-position: 23.913% 0; }
+		36.3636% { background-position: 21.7391% 0; }
+		38.6364% { background-position: 23.913% 0; }
+		40.9091% { background-position: 23.913% 0; }
+		43.1818% { background-position: 23.913% 0; }
+		45.4545% { background-position: 26.087% 0; }
+		47.7273% { background-position: 28.2609% 0; }
+		50.0% { background-position: 30.4348% 0; }
+		52.2727% { background-position: 32.6087% 0; }
+		54.5455% { background-position: 34.7826% 0; }
+		56.8182% { background-position: 36.9565% 0; }
+		59.0909% { background-position: 39.1304% 0; }
+		61.3636% { background-position: 41.3043% 0; }
+		63.6364% { background-position: 43.4783% 0; }
+		65.9091% { background-position: 45.6522% 0; }
+		68.1818% { background-position: 47.8261% 0; }
+		70.4545% { background-position: 50.0% 0; }
+		72.7273% { background-position: 52.1739% 0; }
+		75.0% { background-position: 54.3478% 0; }
+		77.2727% { background-position: 56.5217% 0; }
+		79.5455% { background-position: 58.6957% 0; }
+		81.8182% { background-position: 60.8696% 0; }
+		84.0909% { background-position: 63.0435% 0; }
+		86.3636% { background-position: 65.2174% 0; }
+		88.6364% { background-position: 67.3913% 0; }
+		90.9091% { background-position: 69.5652% 0; }
+		93.1818% { background-position: 71.7391% 0; }
+		95.4545% { background-position: 73.913% 0; }
+		97.7273% { background-position: 76.087% 0; }
+		100% { background-position: 76.087% 0; }
 	}
 
 	@keyframes avatar-happy {
-		0.0% { background-position: 71.4286% 0; }
-		10.0% { background-position: 74.2857% 0; }
-		20.0% { background-position: 77.1429% 0; }
-		30.0% { background-position: 80.0% 0; }
-		40.0% { background-position: 82.8571% 0; }
-		50.0% { background-position: 85.7143% 0; }
-		60.0% { background-position: 88.5714% 0; }
-		70.0% { background-position: 91.4286% 0; }
-		80.0% { background-position: 94.2857% 0; }
-		90.0% { background-position: 97.1429% 0; }
-		100% { background-position: 97.1429% 0; }
+		0.0% { background-position: 78.2609% 0; }
+		9.0909% { background-position: 80.4348% 0; }
+		18.1818% { background-position: 82.6087% 0; }
+		27.2727% { background-position: 84.7826% 0; }
+		36.3636% { background-position: 86.9565% 0; }
+		45.4545% { background-position: 89.1304% 0; }
+		54.5455% { background-position: 91.3043% 0; }
+		63.6364% { background-position: 93.4783% 0; }
+		72.7273% { background-position: 95.6522% 0; }
+		81.8182% { background-position: 97.8261% 0; }
+		90.9091% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
 	}
 
 	@-webkit-keyframes avatar-happy {
-		0.0% { background-position: 71.4286% 0; }
-		10.0% { background-position: 74.2857% 0; }
-		20.0% { background-position: 77.1429% 0; }
-		30.0% { background-position: 80.0% 0; }
-		40.0% { background-position: 82.8571% 0; }
-		50.0% { background-position: 85.7143% 0; }
-		60.0% { background-position: 88.5714% 0; }
-		70.0% { background-position: 91.4286% 0; }
-		80.0% { background-position: 94.2857% 0; }
-		90.0% { background-position: 97.1429% 0; }
-		100% { background-position: 97.1429% 0; }
+		0.0% { background-position: 78.2609% 0; }
+		9.0909% { background-position: 80.4348% 0; }
+		18.1818% { background-position: 82.6087% 0; }
+		27.2727% { background-position: 84.7826% 0; }
+		36.3636% { background-position: 86.9565% 0; }
+		45.4545% { background-position: 89.1304% 0; }
+		54.5455% { background-position: 91.3043% 0; }
+		63.6364% { background-position: 93.4783% 0; }
+		72.7273% { background-position: 95.6522% 0; }
+		81.8182% { background-position: 97.8261% 0; }
+		90.9091% { background-position: 100.0% 0; }
+		100% { background-position: 100.0% 0; }
 	}
 
 	/* The theme hides this link on phones; show the avatar there too */
@@ -5666,3 +5686,47 @@ input, select, textarea {
 			top: 0;
 			margin: 0 0 0 0.7em;
 		}
+
+/* Footer contact links pop slightly on hover */
+	#footer .footer-links a {
+		display: inline-block;
+		-moz-transition: transform 0.18s ease, color 0.18s ease;
+		-webkit-transition: transform 0.18s ease, color 0.18s ease;
+		-ms-transition: transform 0.18s ease, color 0.18s ease;
+		transition: transform 0.18s ease, color 0.18s ease;
+	}
+
+		#footer .footer-links a:hover,
+		#footer .footer-links a:focus-visible {
+			-moz-transform: translateY(-2px) scale(1.12);
+			-webkit-transform: translateY(-2px) scale(1.12);
+			-ms-transform: translateY(-2px) scale(1.12);
+			transform: translateY(-2px) scale(1.12);
+		}
+
+			#footer .footer-links .footer-text:hover {
+				text-decoration: none;
+			}
+
+	@media (prefers-reduced-motion: reduce) {
+		#footer .footer-links a:hover,
+		#footer .footer-links a:focus-visible {
+			-moz-transform: none;
+			-webkit-transform: none;
+			-ms-transform: none;
+			transform: none;
+		}
+	}
+
+/* Footer in the About section's blush */
+	#footer,
+	body.landing #footer,
+	body.is-mobile.landing #footer {
+		background-color: #f2d3c7;
+	}
+
+/* Skills: keep the normal arrow cursor over the tiles and their names */
+	#three .features li.skill,
+	#three .features li.skill * {
+		cursor: default;
+	}
