@@ -5466,3 +5466,14 @@ input, select, textarea {
 			letter-spacing: 0.12em;
 		}
 	}
+
+/* Footer: tighter top and bottom spacing */
+	#footer {
+		padding: 1.6em 0 1.4em 0;
+	}
+
+	@media screen and (max-width: 736px) {
+		#footer {
+			padding: 1.4em 0 1.2em 0;
+		}
+	}
