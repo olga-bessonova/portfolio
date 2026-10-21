@@ -1,5 +1,6 @@
 /*
-	Skills tiles: a soft "bloop" bubble sound when you hover (or tap) each tile.
+	Skills tiles: a watery bubble sound and a little pop when you hover (or tap) each tile,
+	or when the contact buddy is dropped onto one.
 	Synthesised with the Web Audio API, so there are no sound files to load. Browsers only allow
 	sound after the visitor has interacted with the page (a click, tap or key press), so the bubbles
 	start after the first click anywhere.
@@ -29,28 +30,68 @@
 		window.addEventListener(type, unlock, { passive: true });
 	});
 
-	// one bubble: a sine "bloop" sweeping up in pitch, with a fast attack and short decay
+	// one watery bubble: two quick rising chirps (the bubble forming, then popping) plus a soft click
+	var noise = null;
+
+	function chirp(at, from, to, length, volume) {
+		var osc = ctx.createOscillator(),
+			gain = ctx.createGain();
+
+		osc.type = 'sine';
+		osc.frequency.setValueAtTime(from, at);
+		osc.frequency.exponentialRampToValueAtTime(to, at + length * 0.8);
+
+		gain.gain.setValueAtTime(0.0001, at);
+		gain.gain.exponentialRampToValueAtTime(volume, at + 0.006);
+		gain.gain.exponentialRampToValueAtTime(0.0001, at + length);
+
+		osc.connect(gain);
+		gain.connect(ctx.destination);
+		osc.start(at);
+		osc.stop(at + length + 0.02);
+	}
+
+	function click(at) {
+		if (!noise) {
+			noise = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.03), ctx.sampleRate);
+			var data = noise.getChannelData(0);
+			for (var i = 0; i < data.length; i++)
+				data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+		}
+
+		var src = ctx.createBufferSource(),
+			filter = ctx.createBiquadFilter(),
+			gain = ctx.createGain();
+
+		src.buffer = noise;
+		filter.type = 'bandpass';
+		filter.frequency.value = 2600;
+		filter.Q.value = 1.2;
+		gain.gain.value = 0.05;
+
+		src.connect(filter);
+		filter.connect(gain);
+		gain.connect(ctx.destination);
+		src.start(at);
+	}
+
 	function bubble(index) {
 		if (!ctx || ctx.state !== 'running')
 			return;
 
 		var now = ctx.currentTime,
-			osc = ctx.createOscillator(),
-			gain = ctx.createGain(),
-			base = 380 + (index % 6) * 55 + Math.random() * 30;
+			pitch = 1 + (index % 6) * 0.08 + Math.random() * 0.05;
 
-		osc.type = 'sine';
-		osc.frequency.setValueAtTime(base, now);
-		osc.frequency.exponentialRampToValueAtTime(base * 2.3, now + 0.09);
+		chirp(now, 260 * pitch, 720 * pitch, 0.07, 0.10);
+		chirp(now + 0.055, 520 * pitch, 1500 * pitch, 0.05, 0.08);
+		click(now + 0.055);
+	}
 
-		gain.gain.setValueAtTime(0.0001, now);
-		gain.gain.exponentialRampToValueAtTime(0.14, now + 0.012);
-		gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
-
-		osc.connect(gain);
-		gain.connect(ctx.destination);
-		osc.start(now);
-		osc.stop(now + 0.18);
+	// pop a tile (visual) and play its bubble
+	function pop(tile, index) {
+		bubble(index);
+		tile.classList.add('is-popped');
+		window.setTimeout(function() { tile.classList.remove('is-popped'); }, 260);
 	}
 
 	Array.prototype.forEach.call(tiles, function(tile, index) {
@@ -65,9 +106,13 @@
 				return;
 
 			unlock();
-			bubble(index);
-			tile.classList.add('is-popped');
-			window.setTimeout(function() { tile.classList.remove('is-popped'); }, 220);
+			pop(tile, index);
+		});
+
+		// the contact buddy was dropped onto this tile (see avatar.js)
+		tile.addEventListener('buddydrop', function() {
+			unlock();
+			pop(tile, index);
 		});
 	});
 

@@ -299,6 +299,22 @@
 				// Sit down roughly where she was hanging.
 				buddy.classList.remove('is-dragging');
 				placeSitting(x - SIT_W / 2, y + (pointer.type === 'touch' ? TOUCH_DROP : 0) - 20);
+
+				// Landed on a skill tile? Let it know (it pops and bubbles).
+				var seat = buddy.getBoundingClientRect(),
+					points = [[seat.left + seat.width / 2, seat.bottom - 6], [seat.left + seat.width / 2, seat.top + seat.height / 2]];
+
+				for (var i = 0; i < points.length; i++) {
+					var tile = document.elementsFromPoint(points[i][0], points[i][1])
+						.filter(function(el) { return !buddy.contains(el); })
+						.map(function(el) { return el.closest && el.closest('#three .features li.skill'); })
+						.filter(Boolean)[0];
+
+					if (tile) {
+						tile.dispatchEvent(new CustomEvent('buddydrop'));
+						break;
+					}
+				}
 			}
 
 			buddy.classList.remove('is-touch-carry');
